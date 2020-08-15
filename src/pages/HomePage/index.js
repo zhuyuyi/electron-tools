@@ -7,7 +7,7 @@ class HomePage extends Component{
 
     render () {
         let c = 1;
-        return (
+            return (
             <div>
                 <Button type="primary">sssss</Button>
             </div>

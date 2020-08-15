@@ -1,10 +1,10 @@
 {
-  "name": "electron-app",
+  "name": "electron-tools",
   "version": "1.0.0",
   "main": "main.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/zhuyuyi/electron-app.git"
+    "url": "git+ssh://git@github.com/zhuyuyi/electron-tools.git"
   },
   "author": "zhuyuyi <yyzhu@che300.com>",
   "license": "MIT",
@@ -16,9 +16,9 @@
     "redux": "^4.0.5"
   },
   "bugs": {
-    "url": "https://github.com/zhuyuyi/electron-app/issues"
+    "url": "https://github.com/zhuyuyi/electron-tools/issues"
   },
-  "homepage": "https://github.com/zhuyuyi/electron-app#readme",
+  "homepage": "https://github.com/zhuyuyi/electron-tools#readme",
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
@@ -58,9 +58,10 @@
     }
   },
   "lint-staged": {
-    "*.{jsx,txs,ts,js,vue}": [
-      ""node ./scripts/lint-prettier.js",",
-      "git add"
-    ]
+      "*.{js,css,less,sass,scss,json,md,vue}": [
+        "prettier --write",
+        "git add"
+      ],
+      "**/*.{js,jsx}": "npm run lint-staged:js"
+    }
   }
-}
