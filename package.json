@@ -28,6 +28,7 @@
     "cross-env": "^7.0.2",
     "css-loader": "^4.2.1",
     "eslint": "^7.7.0",
+    "eslint-plugin-react": "^7.20.6",
     "html-webpack-plugin": "^4.3.0",
     "html-withimg-loader": "^0.1.16",
     "husky": "^4.2.5",
@@ -50,5 +51,16 @@
     "dev": "cross-env NODE_ENV=development&&webpack-dev-server --mode development --config ./config/webpack.dev.js",
     "build": "webpack --mode production --config ./config/webpack.prod.js&&cross-env NODE_ENV=production"
   },
-  "description": ""
+  "description": "my-demo",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{jsx,txs,ts,js,vue}": [
+      "./node_modules/.bin/eslint --fix",
+      "git add"
+    ]
+  }
 }
