@@ -61,7 +61,7 @@
     }
   },
   "lint-staged": {
-    "src/**/**/*.{js,css,less,sass,scss,json,md}": [
+    "*.{js,css,less,sass,scss,json,md}": [
       "npm run eslint-fix",
       "git add"
     ]

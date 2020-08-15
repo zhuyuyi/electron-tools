@@ -5,9 +5,9 @@ import {Button} from 'antd';
 
 class HomePage extends Component {
     render() {
-        let b = 1;
+        // let b = 1;
         return (
-                <div>
+            <div>
                 <Button type="primary">sssss</Button>
             </div>
         );
