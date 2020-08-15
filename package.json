@@ -48,7 +48,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint-fix": "eslint --fix --ext .js --ext .jsx src/",
+    "eslint-fix": "eslint --fix --ext .js --ext .jsx src/",
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development&&webpack-dev-server --mode development --config ./config/webpack.dev.js",
     "build": "webpack --mode production --config ./config/webpack.prod.js&&cross-env NODE_ENV=production"
@@ -56,13 +56,13 @@
   "description": "my-demo",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "echo 'husky' && npm run eslint-fix && prettier --write && git add ."
     }
   },
   "lint-staged": {
     "*.{js,css,less,sass,scss,json,md}": [
       "prettier --write",
-      "npm run lint-fix",
+      "npm run eslint-fix",
       "git add"
     ]
   }
