@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import homePage from './homePage';
 
 const readucer = combineReducers({
-    homePage
-})
+    homePage,
+});
 
 export default readucer;

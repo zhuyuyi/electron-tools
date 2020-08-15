@@ -28,8 +28,9 @@ module.exports = {
         },
         sourceType: 'module',
     },
-    plugins: ['react'],
+    plugins: ['react','prettier'],
     rules: {
+        "prettier/prettier": "error",
         'no-multiple-empty-lines': [2, {max: 2, maxEOF: 3, maxBOF: 3}],
         'no-irregular-whitespace': [
             2,

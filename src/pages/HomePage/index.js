@@ -1,34 +1,28 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import { Button } from 'antd';
+import {Button} from 'antd';
 
-class HomePage extends Component{
-
-    render () {
-        let c = 1;
+class HomePage extends Component {
+    render() {
+        let a = 1;
         return (
-            <div>
+                <div>
                 <Button type="primary">sssss</Button>
             </div>
-        )
+        );
     }
 }
 
 function mapStateToProps(state) {
-
     return {
-        state
+        state,
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        ...bindActionCreators(
-            {
-            },
-            dispatch
-        )
+        ...bindActionCreators({}, dispatch),
     };
 }
 
