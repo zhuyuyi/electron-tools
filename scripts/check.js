@@ -15,7 +15,7 @@ function getErrorLevel(number) {
 let pass = 0;
 
 // 只针对src目录下的js和vue代码进行校验
-exec('git diff --cached --name-only src| grep -E ".js$|.vue$"', (error, stdout) => {
+exec('git diff --cached --name-only src| grep -E ".js$"', (error, stdout) => {
     if (stdout.length) {
         const array = stdout.split('\n');
         array.pop();
