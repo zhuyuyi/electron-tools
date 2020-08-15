@@ -54,9 +54,10 @@
     "build": "webpack --mode production --config ./config/webpack.prod.js&&cross-env NODE_ENV=production"
   },
   "description": "my-demo",
+  "pre-commit": "npm run eslint-fix && prettier --write && git add .",
   "husky": {
     "hooks": {
-      "pre-commit": "echo 'husky' && npm run eslint-fix && prettier --write && git add ."
+      "pre-commit": "npm run eslint-fix && prettier --write && git add ."
     }
   },
   "lint-staged": {

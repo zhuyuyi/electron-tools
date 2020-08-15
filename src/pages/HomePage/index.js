@@ -6,7 +6,7 @@ import { Button } from 'antd';
 class HomePage extends Component{
 
     render () {
-        let b = 1;
+        let c = 1;
         return (
             <div>
                 <Button type="primary">sssss</Button>
