@@ -15,9 +15,9 @@ import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 
 const store = createStore(reducer);
-let e = '';
+let c = '';
 const Dom = (
-    <ConfigProvider locale={zhCN}>
+        <ConfigProvider locale={zhCN}>
         <Provider store={store}>
             <HomePage />
         </Provider>
