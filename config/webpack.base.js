@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -88,7 +87,6 @@ module.exports = {
             filename: 'index.html',
             template: './index.html'
         }),
-        new CleanWebpackPlugin(),
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn|ja/),
     ],
     resolve: {
