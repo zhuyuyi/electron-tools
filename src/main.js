@@ -10,7 +10,7 @@ import zhCN from 'antd/es/locale/zh_CN'; // 由于 antd 组件的默认文案是
 import HomePage from './pages/HomePage';
 
 const store = createStore(reducer);
-// let d = '';
+
 const Dom = (
     <ConfigProvider locale={zhCN}>
         <Provider store={store}>
