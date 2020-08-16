@@ -50,7 +50,10 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ['style-loader', 'css-loader']  // 增加 'postcss-loader' , 单独抽离css ， 注意顺序
+                use:[
+                    'style-loader',
+                    'css-loader'
+                ]
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)/,
