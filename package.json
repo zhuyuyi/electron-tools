@@ -49,7 +49,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint-fix": "lint-staged",
+    "eslint-fix": "eslint --fix --ext .js --ext .jsx src/",
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development&&webpack-dev-server --mode development --config ./config/webpack.dev.js",
     "build": "webpack --mode production --config ./config/webpack.prod.js&&cross-env NODE_ENV=production"
@@ -62,7 +62,7 @@
   },
   "lint-staged": {
     "**/*.{js,css,less,sass,scss,json,md,jsx}": [
-      "eslint --fix --ext .js --ext .jsx src/",
+      "node commit_check.js",
       "git add"
     ]
   }
