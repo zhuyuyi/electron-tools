@@ -58,7 +58,7 @@
   "description": "my-demo",
   "husky": {
     "hooks": {
-      "pre-push": "npm run check"
+      "pre-push": "npm run eslint-fix"
     }
   }
 }
