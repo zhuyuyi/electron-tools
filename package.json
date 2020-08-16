@@ -38,7 +38,6 @@
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "style-loader": "^1.2.1",
-    "stylelint": "^13.6.1",
     "transform-runtime": "^0.0.0",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
@@ -58,7 +57,14 @@
   "description": "my-demo",
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged",
       "pre-push": "npm run eslint-fix"
     }
+  },
+  "lint-staged": {
+    "*.{js,css,less,sass,scss,json,md,vue}": [
+      "npm run eslint-fix",
+      "git add"
+    ]
   }
 }
