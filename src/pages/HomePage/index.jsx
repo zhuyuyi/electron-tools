@@ -1,14 +1,23 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {Button} from 'antd';
+import LayoutHeader from '@/components/LayoutHeader';
+import {Button, Card} from 'antd';
 
 class HomePage extends Component {
+    state = {};
+
+    componentDidMount() {}
+
     render() {
         // let b = 1;
         return (
             <div>
-                <Button type="primary">sssss</Button>
+                <LayoutHeader title="主页" subTitle="这是主页">
+                    <Card>
+                        <Button type="primary">sssss</Button>
+                    </Card>
+                </LayoutHeader>
             </div>
         );
     }

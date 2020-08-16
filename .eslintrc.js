@@ -40,7 +40,7 @@ module.exports = {
         'no-multi-spaces': 2,
         'no-unused-vars': 2,
         'no-redeclare': 2,
-        'no-console': 1,
+        'no-console': 0,
         'no-var': 2,
         indent: 0,
         'no-unreachable': 2,
@@ -51,27 +51,28 @@ module.exports = {
         'react/no-string-refs': 0, //refs这个东西有时候也是需要的
         'react/prop-types': 0, //这个以后可以规范下
     },
-    // "settings": {
-    //     "react": {
-    //       "createClass": "createReactClass", // Regex for Component Factory to use,
-    //                                          // default to "createReactClass"
-    //       "pragma": "React",  // Pragma to use, default to "React"
-    //       "version": "detect", // React version. "detect" automatically picks the version you have installed.
-    //                            // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
-    //                            // default to latest and warns if missing
-    //                            // It will default to "detect" in the future
-    //       "flowVersion": "0.53" // Flow version
-    //     },
-    //     "propWrapperFunctions": [
-    //         // The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.
-    //         "forbidExtraProps",
-    //         {"property": "freeze", "object": "Object"},
-    //         {"property": "myFavoriteWrapper"}
-    //     ],
-    //     "linkComponents": [
-    //       // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
-    //       "Hyperlink",
-    //       {"name": "Link", "linkAttribute": "to"}
-    //     ]
-    // }
+    // 添加settings 防止push时警报
+    "settings": {
+        "react": {
+          "createClass": "createReactClass", // Regex for Component Factory to use,
+                                             // default to "createReactClass"
+          "pragma": "React",  // Pragma to use, default to "React"
+          "version": "detect", // React version. "detect" automatically picks the version you have installed.
+                               // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+                               // default to latest and warns if missing
+                               // It will default to "detect" in the future
+          "flowVersion": "0.53" // Flow version
+        },
+        "propWrapperFunctions": [
+            // The names of any function used to wrap propTypes, e.g. `forbidExtraProps`. If this isn't set, any propTypes wrapped in a function will be skipped.
+            "forbidExtraProps",
+            {"property": "freeze", "object": "Object"},
+            {"property": "myFavoriteWrapper"}
+        ],
+        "linkComponents": [
+          // Components used as alternatives to <a> for linking, eg. <Link to={ url } />
+          "Hyperlink",
+          {"name": "Link", "linkAttribute": "to"}
+        ]
+    }
 };

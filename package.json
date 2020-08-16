@@ -9,10 +9,12 @@
   "author": "zhuyuyi <yyzhu@che300.com>",
   "license": "MIT",
   "dependencies": {
+    "@ant-design/icons": "^4.2.2",
     "antd": "^4.5.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
     "redux": "^4.0.5"
   },
   "bugs": {
@@ -21,6 +23,7 @@
   "homepage": "https://github.com/zhuyuyi/electron-tools#readme",
   "devDependencies": {
     "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "babel-eslint": "^10.1.0",
@@ -31,6 +34,7 @@
     "eslint": "^7.7.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
+    "fs": "^0.0.1-security",
     "html-webpack-plugin": "^4.3.0",
     "html-withimg-loader": "^0.1.16",
     "husky": "^4.2.5",
