@@ -4,12 +4,21 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-    entry:"./src/main.js",
-    output:{
-        path:path.resolve(__dirname,"./../dist"),
-        filename:"[name].[hash].js",
-        hashDigestLength:8,
-        publicPath: '/'
+    entry:{
+        index:'./src/main.js',
+        another:'./src/another-module.js'
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'initial',
+            automaticNameDelimiter: '.',
+            cacheGroups: {
+               vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 1
+               }
+            }
+         },
     },
     module:{
         rules:[
@@ -68,6 +77,5 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn|ja/),
-
     ]
 }

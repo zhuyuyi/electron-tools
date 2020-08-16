@@ -48,10 +48,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "check":"prettier --writ && node commit_check.js",
     "eslint-fix": "eslint --fix --ext .js --ext .jsx src/",
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development&&webpack-dev-server --mode development --config ./config/webpack.dev.js",
+    "beta":"webpack --mode production --config ./config/webpack.test.js&&cross-env NODE_ENV=production",
     "build": "webpack --mode production --config ./config/webpack.prod.js&&cross-env NODE_ENV=production"
   },
   "description": "my-demo",
