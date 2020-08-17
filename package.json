@@ -70,8 +70,8 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "git add",
-      "npm run eslint-fix"
+      "npm run eslint-fix",
+      "git add"
     ]
   }
 }
