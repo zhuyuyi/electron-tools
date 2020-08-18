@@ -58,7 +58,7 @@
     "start:electron": "concurrently \"npm run dev\" \"electron .\" ",
     "build:electron": "electron-packager ./ electron-demo --platform=win32 --icon=1.ico --arch=x64 --out=./OutApp --asar --app-version=0.0.1",
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development&&webpack-dev-server --mode development --config ./config/webpack.dev.js",
+    "dev": "cross-env NODE_ENV=development&&webpack-dev-server --open --mode development --config ./config/webpack.dev.js",
     "test": "webpack --mode production --config ./config/webpack.test.js&&cross-env NODE_ENV=production",
     "build": "webpack --mode production --config ./config/webpack.prod.js&&cross-env NODE_ENV=production"
   },
