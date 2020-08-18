@@ -55,22 +55,21 @@
   },
   "scripts": {
     "eslint-fix": "eslint --fix --ext .js --ext .jsx src/",
-    "start:electron": "concurrently \"electron .\"  \"npm run dev\"",
+    "start:electron": "concurrently \"npm run dev\" \"electron .\" ",
     "build:electron": "electron-packager ./ electron-demo --platform=win32 --icon=1.ico --arch=x64 --out=./OutApp --asar --app-version=0.0.1",
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development&&webpack-dev-server --mode development --config ./config/webpack.dev.js",
+    "dev": "cross-env NODE_ENV=development&&webpack-dev-server --open --mode development --config ./config/webpack.dev.js",
     "test": "webpack --mode production --config ./config/webpack.test.js&&cross-env NODE_ENV=production",
     "build": "webpack --mode production --config ./config/webpack.prod.js&&cross-env NODE_ENV=production"
   },
   "description": "my-demo",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run eslint-fix"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,css,less,sass,scss,json,md,vue}": [
+    "*.{js,jsx}": [
       "npm run eslint-fix",
       "git add"
     ]
