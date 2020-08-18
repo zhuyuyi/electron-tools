@@ -13,7 +13,7 @@ class HomePage extends Component {
     componentDidMount() {}
 
     render() {
-        // let b = 1;
+        let b = 1;
         return (
             <div>
                 <LayoutHeader title="主页" subTitle="这是主页">
