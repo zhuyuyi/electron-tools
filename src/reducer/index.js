@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import homePage from './homePage';
+import homePageReducer from '@/pages/HomePage/models/homePage';
 
 const readucer = combineReducers({
-    homePage,
+    homePageReducer,
 });
 
 export default readucer;
