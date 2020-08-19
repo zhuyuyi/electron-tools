@@ -18,20 +18,7 @@ class HomePage extends Component {
             <div>
                 <LayoutHeader title="主页" subTitle="这是主页">
                     <Card>
-                        <div>
-                            {this.state.arr.map((item, index) => {
-                                return (
-                                    <span
-                                        key={index}
-                                        onClick={() => {
-                                            this.setName(item);
-                                        }}
-                                    >
-                                        {item}
-                                    </span>
-                                );
-                            })}
-                        </div>
+                        <div></div>
                         <Button type="primary">sssss</Button>
                     </Card>
                 </LayoutHeader>
