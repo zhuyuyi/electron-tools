@@ -10,8 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
+    "@tinymce/tinymce-react": "^3.6.0",
     "antd": "^4.5.4",
     "axios": "^0.19.2",
+    "electron": "^9.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -57,7 +59,7 @@
   "scripts": {
     "eslint-fix": "eslint --fix --ext .js --ext .jsx src/",
     "start:electron": "concurrently \"npm run dev\" \"electron .\" ",
-    "build:electron": "electron-packager ./ electron-demo --platform=win32 --icon=1.ico --arch=x64 --out=./OutApp --asar --app-version=0.0.1",
+    "build:electron": "electron-packager ./ electron-demo --platform=win32 --icon=1.ico --arch=x64 --out=./OutApp --electron-version 9.2.1 --asar --app-version=0.0.1",
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development&&webpack-dev-server --open --mode development --config ./config/webpack.dev.js",
     "test": "webpack --mode production --config ./config/webpack.test.js&&cross-env NODE_ENV=production",

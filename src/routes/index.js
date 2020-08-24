@@ -1,5 +1,5 @@
 import HomePage from '@/pages/HomePage';
-import Person from '@/pages/Person';
+import TinyMceEditor from '@/pages/Editor';
 
 const routes = [
     {
@@ -7,8 +7,8 @@ const routes = [
         component: HomePage,
     },
     {
-        path: '/person',
-        component: Person,
+        path: '/editor',
+        component: TinyMceEditor,
     },
 ];
 
