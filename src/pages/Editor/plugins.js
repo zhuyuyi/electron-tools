@@ -1,9 +1,9 @@
 // apiKey 5xy2yde9hsmbrclk8m4gt3kox668eirr2wwc81s8zm56eig7
 export const plugins =
-    'print table advlist lists echarts noneditable anchor bbcode code charmap codesample emoticons fullscreen hr image imagetools insertdatetime legacyoutput link media nonbreaking noneditable pagebreak paste preview print searchreplace table template wordcount';
+    'print table advlist lists echarts noneditable anchor bbcode code charmap codesample emoticons fullscreen hr image imagetools insertdatetime legacyoutput link media nonbreaking noneditable pagebreak paste print searchreplace table template wordcount';
 
 export const toolbar =
-    'undo redo | formatselect 自定义库 | forecolor backcolor formatting alignment | bullist numlist | anchor image link media charmap emoticons hr nonbreaking codesample | searchreplace pagebreak fullscreen preview template';
+    'undo redo | formatselect 自定义库 | forecolor backcolor formatting alignment | bullist numlist | anchor image link media charmap emoticons hr nonbreaking codesample | searchreplace pagebreak fullscreen template';
 
 export const codesample_languages = [
     // 高亮语言
@@ -87,14 +87,14 @@ export const options = {
     },
 };
 
-let aa = `<div>11111111111111111</div><script>(function(){let a = 1;console.log(a)})()</script><div>22</div><script>(function(){let a = 2;console.log(a)})()</script>`;
-
+let aa = `<div>11111111111111111</div><script>(function(){let a = 1;console.log(a)})()</script><div>22</div><script>(function(){let a = 2;console.log(a)})()</script>`; // 测试用例
+// 取出所有的方法
 let b = aa.match(/(\(function\(\){[^<>]*\}\)\(\))/g);
 
 console.log(b);
-
+// 先渲染
 let c = `${aa}`;
-
+// 执行方法
 for (let i = 0; i < b.length; i++) {
     eval(b[i]);
 }

@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
-import {Modal} from 'antd';
+import {Modal, Tabs} from 'antd';
 import CodeMirrorEditor from './CodeMirrorEditor';
+import EchartsForm from './EchartsForm';
 import EchartsView from './EchartsView';
 import {options} from './CodeMirrorEditor/options';
 import styles from './index.less';
 
+const {TabPane} = Tabs;
+
 class EchartsModal extends Component {
     state = {
+        tabKey: '1', // tab key
         json: '', // json值
-        base64: '', //
+        base64: '', // 图片地址
+        values: {}, // 配置项
     };
 
     componentDidMount() {
@@ -16,6 +21,13 @@ class EchartsModal extends Component {
             json: options,
         });
     }
+
+    // 配置项
+    onFinish = values => {
+        this.setState({
+            values,
+        });
+    };
 
     // 设置值，同步两侧代码
     setEchartsValue = json => {
@@ -32,10 +44,16 @@ class EchartsModal extends Component {
         });
     };
 
+    // tabs change
+    tabsChange = key => {
+        this.setState({
+            tabKey: key,
+        });
+    };
+
     // 提交
     handleOk = () => {
         const {handleModal} = this.props;
-
         const {json} = this.state;
 
         const _div = document.createElement('div'); // 空壳div
@@ -45,7 +63,6 @@ class EchartsModal extends Component {
         let _document = window.tinymce.activeEditor.iframeElement.contentDocument;
         const script = `<script>${(function () {
             setTimeout(() => {
-                console.log(111111);
                 const myChart = window.echarts.init(_document.getElementById(_id), null, {
                     renderer: 'canvas',
                 });
@@ -70,7 +87,7 @@ class EchartsModal extends Component {
 
     render() {
         const {visible, handleModal} = this.props;
-        const {json, base64} = this.state;
+        const {json, base64, tabKey} = this.state;
 
         return (
             <Modal
@@ -88,7 +105,30 @@ class EchartsModal extends Component {
                 centered={true}
             >
                 <div className={styles.modalBox}>
-                    <CodeMirrorEditor setEchartsValue={this.setEchartsValue} json={json} />
+                    <Tabs
+                        className={styles.tabContainer}
+                        onChange={this.tabsChange}
+                        tabPosition="left"
+                        accessKey={tabKey}
+                    >
+                        <TabPane tab="基础配置" key="1">
+                            <EchartsForm
+                                setEchartsValue={this.setEchartsValue}
+                                onFinish={this.onFinish}
+                            />
+                        </TabPane>
+                        <TabPane tab="源代码" key="2">
+                            {tabKey === '2' && (
+                                <CodeMirrorEditor
+                                    setEchartsValue={this.setEchartsValue}
+                                    json={json}
+                                />
+                            )}
+                        </TabPane>
+                        <TabPane tab="图表选择" key="3">
+                            Content of Tab Pane 3
+                        </TabPane>
+                    </Tabs>
                     <EchartsView json={json} base64={base64} />
                 </div>
             </Modal>

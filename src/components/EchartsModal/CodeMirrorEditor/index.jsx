@@ -15,6 +15,10 @@ class CodeMirrorEditor extends Component {
         value: '', // 编辑器值
     };
 
+    componentDidMount() {
+        this.initAceEditor();
+    }
+
     componentDidUpdate(preProps) {
         const {json} = this.props;
         if (preProps.json !== json) {
