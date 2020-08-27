@@ -1,6 +1,6 @@
 // apiKey 5xy2yde9hsmbrclk8m4gt3kox668eirr2wwc81s8zm56eig7
 export const plugins =
-    'print table advlist lists echarts anchor bbcode code charmap codesample emoticons fullscreen hr image imagetools insertdatetime legacyoutput link media nonbreaking noneditable pagebreak paste preview print searchreplace table template wordcount';
+    'print table advlist lists echarts noneditable anchor bbcode code charmap codesample emoticons fullscreen hr image imagetools insertdatetime legacyoutput link media nonbreaking noneditable pagebreak paste preview print searchreplace table template wordcount';
 
 export const toolbar =
     'undo redo | formatselect 自定义库 | forecolor backcolor formatting alignment | bullist numlist | anchor image link media charmap emoticons hr nonbreaking codesample | searchreplace pagebreak fullscreen preview template';
@@ -48,6 +48,11 @@ export const options = {
     skin: 'oxide-dark', // wiki
     image_caption: true, // 是否显示图片标题
     image_advtab: true, // 图片高级属性
+    media_strict: false,
+    allow_unsafe_link_target: true, // 允许不安全的link
+    schema: 'html5',
+    valid_elements: '*[*]',
+    extended_valid_elements: '*[*]',
     // images_upload_handler: (blobInfo, succFun, failFun) => {
     //     console.log(blobInfo.base64());
     //     let base64 = blobInfo.base64();
@@ -82,5 +87,17 @@ export const options = {
     },
 };
 
+let aa = `<div>11111111111111111</div><script>(function(){let a = 1;console.log(a)})()</script><div>22</div><script>(function(){let a = 2;console.log(a)})()</script>`;
+
+let b = aa.match(/(\(function\(\){[^<>]*\}\)\(\))/g);
+
+console.log(b);
+
+let c = `${aa}`;
+
+for (let i = 0; i < b.length; i++) {
+    eval(b[i]);
+}
+
 // 测试用例
-export let content = ``;
+export let content = c;
