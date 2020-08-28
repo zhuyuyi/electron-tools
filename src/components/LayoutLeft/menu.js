@@ -10,11 +10,11 @@ const menus = [
         name: '主页',
     },
     {
-        path: '/person',
+        path: '/editor',
         icon() {
             return <PieChartOutlined />;
         },
-        name: '个人',
+        name: '编辑器',
     },
     {
         path: '/setting',

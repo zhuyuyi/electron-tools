@@ -9,6 +9,7 @@ import zhCN from 'antd/es/locale/zh_CN'; // 由于 antd 组件的默认文案是
 import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import 'antd/dist/antd.css';
+import './public/css/index.css';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
