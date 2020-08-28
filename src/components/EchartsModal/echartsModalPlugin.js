@@ -1,6 +1,6 @@
 // 初始化图表库
 
-export default function initCharts(reactInstance) {
+export function initCharts(handleVisible) {
     if (!window.tinymce) {
         console.log('没有找到tinymce库');
         return false;
@@ -15,10 +15,39 @@ export default function initCharts(reactInstance) {
             onAction: function () {
                 // editor.insertContent(``)
 
-                reactInstance.handleModal(true);
+                handleVisible(true);
 
                 console.log(11111);
             },
         });
     });
+}
+
+export function handleOk(json) {
+    const activeEditor = window.tinymce.activeEditor;
+    const _div = document.createElement('div'); // 空壳div
+    let _id = `canvas_${new Date().getTime()}`; // 获取每个id
+
+    const canvasBox = `<div id=${_id} style="width:400px;height:400px"></div>`;
+    let _document = activeEditor.iframeElement.contentDocument;
+    const script = `<script>${(function () {
+        let options;
+        setTimeout(() => {
+            const myChart = window.echarts.init(_document.getElementById(_id), null, {
+                renderer: 'canvas',
+            });
+            myChart.clear();
+            if (json) {
+                options = eval('(' + json + ')');
+            }
+            myChart.setOption(options);
+        }, 500);
+        return options; // 这里需要重写 为了让重渲染时也触发相应
+    })()}</script>`;
+
+    _div.innerHTML = canvasBox + script; // 拼装组件
+
+    let render = '<div contenteditable="false">' + _div.innerHTML + '</div>'; // 渲染renderdiv
+
+    activeEditor.insertContent(render);
 }

@@ -1,42 +1,33 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import styles from './index.less';
 
-class EchartsView extends Component {
-    state = {
-        myChart: null,
-    };
+function EchartsView(props) {
+    const {json} = props;
 
-    componentDidUpdate(preProps) {
-        const {json} = this.props;
-        if (preProps.json !== json) {
-            this.initEcharts();
+    useEffect(() => {
+        if (json) {
+            initEcharts();
         }
-    }
+    }, [json]);
 
-    initEcharts = () => {
-        const {json} = this.props;
-
+    // init
+    const initEcharts = () => {
         const myChart = window.echarts.init(document.getElementById('echarts'), null, {
             renderer: 'canvas',
         });
         myChart.clear();
-        let options;
+        let options = '';
         if (json) {
             options = eval('(' + json + ')');
         }
         myChart.setOption(options);
-        this.setState({
-            myChart,
-        });
     };
 
-    render() {
-        return (
-            <div className={styles.viewBox}>
-                <div id="echarts" className={styles.viewEcharts}></div>
-            </div>
-        );
-    }
+    return (
+        <div className={styles.viewBox}>
+            <div id="echarts" className={styles.viewEcharts}></div>
+        </div>
+    );
 }
 
 export default EchartsView;

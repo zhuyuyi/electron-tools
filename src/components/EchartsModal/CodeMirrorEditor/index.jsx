@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import jsBeautify from 'js-beautify/js/lib/beautify';
 import {Button} from 'antd';
 import ace from 'brace';
@@ -9,27 +9,17 @@ import 'brace/ext/searchbox';
 
 import styles from './index.less';
 
-class CodeMirrorEditor extends Component {
-    state = {
-        codeEditor: {}, // ace编辑器
-        value: '', // 编辑器值
-    };
+function CodeMirrorEditor(props) {
+    const {json, setEchartsValue, handleDetailsVisible, renderCanvas} = props;
+    const [value, setValue] = useState(''); // 编辑器值
+    const [codeEditor, setCodeEditor] = useState(null); // ace编辑器
 
-    componentDidMount() {
-        this.initAceEditor();
-    }
-
-    componentDidUpdate(preProps) {
-        const {json} = this.props;
-        if (preProps.json !== json) {
-            this.initAceEditor();
-        }
-    }
+    useEffect(() => {
+        initAceEditor();
+    }, []);
 
     // 初始化左侧ace编辑器
-    initAceEditor = () => {
-        const {json} = this.props;
-
+    const initAceEditor = () => {
         let codeEditor = ace.edit('codeEditor');
         codeEditor.getSession().setMode('ace/mode/javascript'); // 语言
         codeEditor.setTheme('ace/theme/monokai'); // 主题
@@ -40,43 +30,49 @@ class CodeMirrorEditor extends Component {
         let value = jsBeautify.js_beautify(json, {indent_size: 4}); // 缩进
         codeEditor.setValue(value); // 设置初始值
         codeEditor.clearSelection(); // 取消全选
-        this.setState(
-            {
-                codeEditor,
-                value,
-            },
-            () => {
-                codeEditor.on('change', this.onChange);
-            }
-        );
+
+        setCodeEditor(codeEditor);
+        setValue(value);
     };
 
     // aceEditor change
-    onChange = () => {
-        const {codeEditor} = this.state;
-        this.setState({
-            value: codeEditor.getValue(),
-        });
+    const onChange = () => {
+        setValue(codeEditor.getValue());
     };
 
-    render() {
-        const {setEchartsValue} = this.props;
-        const {value} = this.state;
+    useEffect(() => {
+        if (codeEditor) {
+            codeEditor.on('change', onChange);
+        }
+    }, [codeEditor]);
 
-        return (
-            <div className={styles.aceEditorBox}>
+    return (
+        <div className={styles.aceEditorBox}>
+            <div className={styles.btnBox}>
+                <Button
+                    onClick={() => {
+                        handleDetailsVisible(false);
+                    }}
+                    className={styles.marginRight}
+                >
+                    返回
+                </Button>
                 <Button
                     onClick={() => {
                         setEchartsValue(value);
                     }}
                     type="primary"
+                    className={styles.marginRight}
                 >
                     运行
                 </Button>
-                <div id="codeEditor"></div>
+                <Button type="primary" onClick={renderCanvas}>
+                    插入图表
+                </Button>
             </div>
-        );
-    }
+            <div id="codeEditor"></div>
+        </div>
+    );
 }
 
 export default CodeMirrorEditor;
