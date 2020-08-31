@@ -12,8 +12,8 @@ function LayoutLeft() {
 
     // 副作用
     useEffect(() => {
-        if (localStorage.selectedKeys) {
-            let _keys = JSON.parse(localStorage.selectedKeys);
+        if (sessionStorage.selectedKeys) {
+            let _keys = JSON.parse(sessionStorage.selectedKeys);
             if (!_keys.length || _keys.length === 0) {
                 return false;
             }
@@ -24,7 +24,7 @@ function LayoutLeft() {
     // 选择的菜单
     const onSelect = props => {
         setSelectedKeys(props.selectedKeys);
-        localStorage.selectedKeys = JSON.stringify(props.selectedKeys);
+        sessionStorage.selectedKeys = JSON.stringify(props.selectedKeys);
     };
 
     return (
