@@ -79,6 +79,16 @@ function XYData(props) {
         setOpitonsData(_opitonsData);
     };
 
+    // 删除这一行数据
+    const onDeleteTag = () => {
+        let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
+        _opitonsData.series.splice(opitonsDataItemIndex, 1);
+        if (_opitonsData.legend && _opitonsData.legend.data) {
+            _opitonsData.legend.data.splice(opitonsDataItemIndex, 1);
+        }
+        setOpitonsData(_opitonsData);
+    };
+
     return (
         <Fragment>
             {opitonsData.series[opitonsDataItemIndex].data.map((tag, index) => {
@@ -131,6 +141,10 @@ function XYData(props) {
                 <Tag
                     onClick={() => {
                         handleInputVisible(true);
+                    }}
+                    closable
+                    onClose={() => {
+                        onDeleteTag();
                     }}
                 >
                     <PlusOutlined /> 添加数据

@@ -5,7 +5,6 @@ export const lines = [
             'https://echarts-www.cdn.bcebos.com/examples/data/thumb/line-simple.jpg?_v_=20200710_1',
         options: `{
             title: {
-                left: 'center',
                 text: '基础配置',
             },
             xAxis: {

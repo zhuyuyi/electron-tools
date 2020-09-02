@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import jsBeautify from 'js-beautify/js/lib/beautify';
-import {Button} from 'antd';
 import ace from 'brace';
+import SubmitEcharts from './../SubmitEcharts';
 import 'brace/mode/javascript';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
@@ -48,28 +48,13 @@ function CodeMirrorEditor(props) {
 
     return (
         <div className={styles.aceEditorBox}>
-            <div className={styles.btnBox}>
-                <Button
-                    onClick={() => {
-                        handleDetailsVisible(false);
-                    }}
-                    className={styles.marginRight}
-                >
-                    返回
-                </Button>
-                <Button
-                    onClick={() => {
-                        setEchartsValue(value);
-                    }}
-                    type="primary"
-                    className={styles.marginRight}
-                >
-                    运行
-                </Button>
-                <Button type="primary" onClick={renderCanvas}>
-                    插入图表
-                </Button>
-            </div>
+            <SubmitEcharts
+                handleDetailsVisible={handleDetailsVisible}
+                renderCanvas={renderCanvas}
+                handleSubmit={() => {
+                    setEchartsValue(value);
+                }}
+            />
             <div id="codeEditor"></div>
         </div>
     );

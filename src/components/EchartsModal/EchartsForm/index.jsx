@@ -1,7 +1,16 @@
+/*
+ * @Author: 朱育仪
+ * @Date: 2020-09-02 09:19:10
+ * @Last Modified by: 朱育仪
+ * @Last Modified time: 2020-09-02 09:19:10
+ * @Description: line和bar所用的form
+ */
+
 import React, {useState, useEffect} from 'react';
 import {Button, Form, Input, Card, Radio} from 'antd';
 import XYData from './XYData';
 import XAxis from './XAxis';
+import SubmitEcharts from '@/components/EchartsModal/SubmitEcharts';
 import styles from './index.less';
 
 const FormItem = Form.Item;
@@ -47,6 +56,7 @@ function EchartsForm(props) {
         title: (options.title && options.title.text) || '', // canvas标题
         isShowTooplip: options.tooltip && options.tooltip.trigger ? '1' : '2', // 是否展示图表文字提示
         isShowAreaStyle: isShowAreaStyleFuc(options), // 是否展示填充色
+        isShowTag: options.length && options.legend.data ? '1' : '2', // 是否展示标签
     }); // 配置项
 
     // 结束事件
@@ -61,11 +71,45 @@ function EchartsForm(props) {
             });
     };
 
-    // 添加数据源
-    const addData = () => {
+    // 改变标题
+    const changeTitle = e => {
+        let value = e.target.value;
         let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-        _opitonsData.series = [..._opitonsData.series, {data: [], type: id}];
+        _opitonsData.title = {
+            text: value,
+        };
+        timer = timeOutRender(timer, () => {
+            setOpitonsData(_opitonsData);
+        });
+    };
 
+    // 改变宽度
+    const changeWidth = e => {
+        let value = e.target.value;
+        let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
+        if (_opitonsData.custom) {
+            _opitonsData.custom.width = value;
+        } else {
+            _opitonsData.custom = {
+                width: value,
+            };
+        }
+        timer = timeOutRender(timer, () => {
+            setOpitonsData(_opitonsData);
+        });
+    };
+
+    // 改变高度
+    const changeHeight = e => {
+        let value = e.target.value;
+        let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
+        if (_opitonsData.custom) {
+            _opitonsData.custom.height = value;
+        } else {
+            _opitonsData.custom = {
+                height: value,
+            };
+        }
         timer = timeOutRender(timer, () => {
             setOpitonsData(_opitonsData);
         });
@@ -107,45 +151,38 @@ function EchartsForm(props) {
         });
     };
 
-    // 改变标题
-    const changeTitle = e => {
+    // 是否展示标签
+    const changeShowTag = e => {
         let value = e.target.value;
         let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-        _opitonsData.title = {
-            text: value,
-            left: 'center',
-        };
-        timer = timeOutRender(timer, () => {
-            setOpitonsData(_opitonsData);
-        });
-    };
-
-    // 改变宽度
-    const changeWidth = e => {
-        let value = e.target.value;
-        let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-        if (_opitonsData.custom) {
-            _opitonsData.custom.width = value;
-        } else {
-            _opitonsData.custom = {
-                width: value,
+        if (value === '1') {
+            _opitonsData.legend = {
+                data: [],
             };
+            for (let i = 0; i < _opitonsData.series.length; i++) {
+                let tag = `标签${i + 1}`;
+                _opitonsData.series[i].name = tag; // 要与legend中数据一一对应
+                _opitonsData.legend.data.push(tag);
+            }
+        } else {
+            _opitonsData.legend = {};
         }
+        setValues({
+            ...values,
+            isShowTag: value,
+        });
         timer = timeOutRender(timer, () => {
             setOpitonsData(_opitonsData);
         });
     };
 
-    // 改变高度
-    const changeHeight = e => {
-        let value = e.target.value;
+    // 添加数据源
+    const addData = () => {
         let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-        if (_opitonsData.custom) {
-            _opitonsData.custom.height = value;
-        } else {
-            _opitonsData.custom = {
-                height: value,
-            };
+        let index = _opitonsData.series.length + 1;
+        _opitonsData.series = [..._opitonsData.series, {data: [], type: id, name: `标签${index}`}];
+        if (values.isShowTag === '1') {
+            _opitonsData.legend.data.push(`标签${index}`);
         }
         timer = timeOutRender(timer, () => {
             setOpitonsData(_opitonsData);
@@ -194,12 +231,31 @@ function EchartsForm(props) {
                             <Radio value="2">否</Radio>
                         </Radio.Group>
                     </FormItem>
+                    <FormItem label="是否展示标签" name="isShowTag" onChange={changeShowTag}>
+                        <Radio.Group>
+                            <Radio value="1">是</Radio>
+                            <Radio value="2">否</Radio>
+                        </Radio.Group>
+                    </FormItem>
+                    {values.isShowTag === '1' && (
+                        <FormItem label={`标签值`}>
+                            <XAxis
+                                opitonsData={opitonsData}
+                                setOpitonsData={setOpitonsData}
+                                tagType={`legend`}
+                            />
+                        </FormItem>
+                    )}
                     <FormItem label="数据轴标题">
                         <XAxis opitonsData={opitonsData} setOpitonsData={setOpitonsData} />
                     </FormItem>
                     {opitonsData.series.map((item, index) => {
+                        let random = (Math.random() * 100000000).toFixed(0);
                         return (
-                            <FormItem label={`数据呈现（第${index + 1}组数据）`} key={index}>
+                            <FormItem
+                                label={`数据呈现（第${index + 1}组数据）`}
+                                key={`${random}_${index}`}
+                            >
                                 <XYData
                                     opitonsData={opitonsData}
                                     setOpitonsData={setOpitonsData}
@@ -220,22 +276,11 @@ function EchartsForm(props) {
 
     return (
         <div>
-            <div className={styles.btnBox}>
-                <Button
-                    onClick={() => {
-                        handleDetailsVisible(false);
-                    }}
-                    className={styles.marginRight}
-                >
-                    返回
-                </Button>
-                <Button type="primary" onClick={handleSubmit} className={styles.marginRight}>
-                    运行
-                </Button>
-                <Button type="primary" onClick={renderCanvas}>
-                    插入图表
-                </Button>
-            </div>
+            <SubmitEcharts
+                handleDetailsVisible={handleDetailsVisible}
+                renderCanvas={renderCanvas}
+                handleSubmit={handleSubmit}
+            />
             {formRender()}
         </div>
     );

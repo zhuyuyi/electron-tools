@@ -4,7 +4,7 @@ import {PlusOutlined} from '@ant-design/icons';
 import styles from './index.less';
 
 function XAxis(props) {
-    const {opitonsData, setOpitonsData} = props;
+    const {opitonsData, setOpitonsData, tagType} = props;
 
     const inputRef = useRef(); // 添加的输入框
     const [inputVisible, handleInputVisible] = useState(false); // 添加输入框显示隐藏
@@ -13,13 +13,15 @@ function XAxis(props) {
     const [editInputVisible, handleEditInputVisible] = useState(-1); // 编辑输入框显示隐藏
     const [editInputValue, setEditInputValue] = useState(''); // 编辑输入框值
     const [editInputRef, setEditInputRef] = useState(null); // 获取refInput
-    const [type, setType] = useState('xAxis');
+    const [type, setType] = useState(tagType || 'xAxis');
 
     useEffect(() => {
-        if (opitonsData.xAxis.type === 'category') {
-            setType('xAxis');
-        } else if (opitonsData.yAxis.type === 'category') {
-            setType('yAxis');
+        if (tagType !== 'legend') {
+            if (opitonsData.xAxis.type === 'category') {
+                setType('xAxis');
+            } else if (opitonsData.yAxis.type === 'category') {
+                setType('yAxis');
+            }
         }
     }, []);
 
@@ -33,7 +35,7 @@ function XAxis(props) {
     const handleInputConfirm = () => {
         if (inputValue) {
             let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-            _opitonsData[type].data = [..._opitonsData.xAxis.data, inputValue];
+            _opitonsData[type].data = [..._opitonsData[type].data, inputValue];
 
             setOpitonsData(_opitonsData);
             setInputValue(''); // 将input制空
@@ -51,7 +53,9 @@ function XAxis(props) {
         if (editInputValue) {
             let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
             _opitonsData[type].data[index] = editInputValue;
-
+            if (tagType === 'legend') {
+                _opitonsData.series[index].name = editInputValue;
+            }
             setOpitonsData(_opitonsData);
         }
         handleEditInputVisible(false);
@@ -87,15 +91,42 @@ function XAxis(props) {
         setOpitonsData(_opitonsData);
     };
 
+    // 新增的渲染dom
+    const renderInputOrTag = () => {
+        if (tagType !== 'legend') {
+            if (inputVisible) {
+                <Input
+                    ref={inputRef}
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onBlur={handleInputConfirm}
+                    onPressEnter={handleInputConfirm}
+                    className={styles.tagInput}
+                />;
+            } else {
+                return (
+                    <Tag
+                        onClick={() => {
+                            handleInputVisible(true);
+                        }}
+                    >
+                        <PlusOutlined /> 添加数据
+                    </Tag>
+                );
+            }
+        }
+    };
+
     return (
         <Fragment>
-            {opitonsData[type].data &&
+            {opitonsData[type] &&
+                opitonsData[type].data &&
                 opitonsData[type].data.map((tag, index) => {
                     if (editInputVisible !== index) {
                         return (
                             <Tag
                                 key={index}
-                                closable
+                                closable={tagType !== 'legend'}
                                 onClose={() => {
                                     onCloseTag(index);
                                 }}
@@ -127,24 +158,7 @@ function XAxis(props) {
                         );
                     }
                 })}
-            {inputVisible ? (
-                <Input
-                    ref={inputRef}
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    onBlur={handleInputConfirm}
-                    onPressEnter={handleInputConfirm}
-                    className={styles.tagInput}
-                />
-            ) : (
-                <Tag
-                    onClick={() => {
-                        handleInputVisible(true);
-                    }}
-                >
-                    <PlusOutlined /> 添加数据
-                </Tag>
-            )}
+            {renderInputOrTag()}
         </Fragment>
     );
 }
