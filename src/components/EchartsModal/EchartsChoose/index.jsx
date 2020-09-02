@@ -1,43 +1,27 @@
-import React, {useState, Fragment, useEffect} from 'react';
+import React, {useState, Fragment} from 'react';
 import styles from './index.less';
 import {Tabs} from 'antd';
 import CodeMirrorEditor from './../CodeMirrorEditor';
 import EchartsForm from './../EchartsForm';
 import EchartsView from './../EchartsView';
 import ChooseList from './ChooseList';
-import {options} from './../CodeMirrorEditor/options';
 import {handleOk} from '@/components/EchartsModal/echartsModalPlugin';
 
 const {TabPane} = Tabs;
 
 function EchartsChoose(props) {
     const {handleModal} = props;
-
     const [detailsVisible, handleDetailsVisible] = useState(false); // 是否进入详细页
     const [tabKey, changeTabKey] = useState('1'); // tab key
     const [json, setJson] = useState(''); // json值
+    const [id, setId] = useState(''); // 选中的id
     // const [base64, setBase64] = useState(''); // 图片地址
-    const [values, setValues] = useState({
-        isShowY: '1',
-        isShowX: '1',
-        width: 30,
-    }); // 配置项
-
-    useEffect(() => {
-        setJson(options);
-    }, []);
 
     // 绘制成一张图片返回base64
     // const setImage = canvas => {
     //     let base64 = canvas.getDataURL('image/png');
     //     setBase64(base64);
     // };
-
-    // 配置项
-    const onFinish = _values => {
-        setValues(_values);
-        console.log(values);
-    };
 
     // 设置值，同步两侧代码
     const setEchartsValue = json => {
@@ -50,15 +34,33 @@ function EchartsChoose(props) {
     };
 
     // goDetails
-    const goDetails = item => {
+    const goDetails = (item, category) => {
         handleDetailsVisible(true);
         setJson(item.options);
+        setId(category.id);
     };
 
     // submit
     const renderCanvas = () => {
         handleOk(json);
         handleModal(false);
+    };
+
+    // 渲染不一样的可视化form
+    const renderDiffForm = () => {
+        if (id === 'line' || id === 'bar') {
+            return (
+                <EchartsForm
+                    handleDetailsVisible={handleDetailsVisible}
+                    setEchartsValue={setEchartsValue}
+                    renderCanvas={renderCanvas}
+                    json={json}
+                    id={id}
+                />
+            );
+        } else if (id === 'pie') {
+            return <div>1111</div>;
+        }
     };
 
     return (
@@ -72,13 +74,7 @@ function EchartsChoose(props) {
                         accessKey={tabKey}
                     >
                         <TabPane tab="基础配置" key="1">
-                            <EchartsForm
-                                handleDetailsVisible={handleDetailsVisible}
-                                setEchartsValue={setEchartsValue}
-                                onFinish={onFinish}
-                                values={values}
-                                renderCanvas={renderCanvas}
-                            />
+                            {renderDiffForm()}
                         </TabPane>
                         <TabPane tab="源代码" key="2">
                             {tabKey === '2' && (

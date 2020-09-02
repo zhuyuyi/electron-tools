@@ -8,10 +8,7 @@ export const pies = [
                 subtext: '虚构数据',
                 left: 'center'
             },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b} : {c} ({d}%)'
-            },
+            tooltip: {},
             legend: {
                 // orient: 'vertical',
                 // top: 'middle',
@@ -26,9 +23,7 @@ export const pies = [
                     center: ['50%', '50%'],
                     selectedMode: 'single',
                     data: [
-                        {
-                            value: 1548,
-                            name: '幽州'},
+                        {value: 1548, name: '幽州'},
                         {value: 535, name: '荆州'},
                         {value: 510, name: '兖州'},
                         {value: 634, name: '益州'},

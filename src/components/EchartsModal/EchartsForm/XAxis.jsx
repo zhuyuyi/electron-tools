@@ -3,8 +3,8 @@ import {Input, Tag} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import styles from './index.less';
 
-function XYData(props) {
-    const {opitonsData, setOpitonsData, opitonsDataItemIndex} = props;
+function XAxis(props) {
+    const {opitonsData, setOpitonsData} = props;
 
     const inputRef = useRef(); // 添加的输入框
     const [inputVisible, handleInputVisible] = useState(false); // 添加输入框显示隐藏
@@ -13,6 +13,15 @@ function XYData(props) {
     const [editInputVisible, handleEditInputVisible] = useState(-1); // 编辑输入框显示隐藏
     const [editInputValue, setEditInputValue] = useState(''); // 编辑输入框值
     const [editInputRef, setEditInputRef] = useState(null); // 获取refInput
+    const [type, setType] = useState('xAxis');
+
+    useEffect(() => {
+        if (opitonsData.xAxis.type === 'category') {
+            setType('xAxis');
+        } else if (opitonsData.yAxis.type === 'category') {
+            setType('yAxis');
+        }
+    }, []);
 
     useEffect(() => {
         if (inputVisible) {
@@ -24,10 +33,8 @@ function XYData(props) {
     const handleInputConfirm = () => {
         if (inputValue) {
             let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-            _opitonsData.series[opitonsDataItemIndex].data = [
-                ..._opitonsData.series[opitonsDataItemIndex].data,
-                inputValue,
-            ];
+            _opitonsData[type].data = [..._opitonsData.xAxis.data, inputValue];
+
             setOpitonsData(_opitonsData);
             setInputValue(''); // 将input制空
         }
@@ -43,7 +50,8 @@ function XYData(props) {
     const handleEditInputConfirm = index => {
         if (editInputValue) {
             let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-            _opitonsData.series[opitonsDataItemIndex].data[index] = editInputValue;
+            _opitonsData[type].data[index] = editInputValue;
+
             setOpitonsData(_opitonsData);
         }
         handleEditInputVisible(false);
@@ -75,49 +83,50 @@ function XYData(props) {
     // closeTag
     const onCloseTag = index => {
         let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-        _opitonsData.series[opitonsDataItemIndex].data.splice(index, 1);
+        _opitonsData[type].data.splice(index, 1);
         setOpitonsData(_opitonsData);
     };
 
     return (
         <Fragment>
-            {opitonsData.series[opitonsDataItemIndex].data.map((tag, index) => {
-                if (editInputVisible !== index) {
-                    return (
-                        <Tag
-                            key={index}
-                            closable
-                            onClose={() => {
-                                onCloseTag(index);
-                            }}
-                        >
-                            <span
-                                onClick={() => {
-                                    tagDoubleClick(index, tag);
+            {opitonsData[type].data &&
+                opitonsData[type].data.map((tag, index) => {
+                    if (editInputVisible !== index) {
+                        return (
+                            <Tag
+                                key={index}
+                                closable
+                                onClose={() => {
+                                    onCloseTag(index);
                                 }}
                             >
-                                {tag}
-                            </span>
-                        </Tag>
-                    );
-                } else {
-                    return (
-                        <Input
-                            key={index}
-                            ref={saveEditInputRef}
-                            value={editInputValue}
-                            onChange={handleEditInputChange}
-                            onBlur={() => {
-                                handleEditInputConfirm(index);
-                            }}
-                            onPressEnter={() => {
-                                handleEditInputConfirm(index);
-                            }}
-                            className={styles.tagInput}
-                        />
-                    );
-                }
-            })}
+                                <span
+                                    onClick={() => {
+                                        tagDoubleClick(index, tag);
+                                    }}
+                                >
+                                    {tag}
+                                </span>
+                            </Tag>
+                        );
+                    } else {
+                        return (
+                            <Input
+                                key={index}
+                                ref={saveEditInputRef}
+                                value={editInputValue}
+                                onChange={handleEditInputChange}
+                                onBlur={() => {
+                                    handleEditInputConfirm(index);
+                                }}
+                                onPressEnter={() => {
+                                    handleEditInputConfirm(index);
+                                }}
+                                className={styles.tagInput}
+                            />
+                        );
+                    }
+                })}
             {inputVisible ? (
                 <Input
                     ref={inputRef}
@@ -140,4 +149,4 @@ function XYData(props) {
     );
 }
 
-export default XYData;
+export default XAxis;

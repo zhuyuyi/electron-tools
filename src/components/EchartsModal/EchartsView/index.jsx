@@ -9,6 +9,7 @@ function EchartsView(props) {
             initEcharts();
         }
     }, [json]);
+    let options = '';
 
     // init
     const initEcharts = () => {
@@ -16,7 +17,7 @@ function EchartsView(props) {
             renderer: 'canvas',
         });
         myChart.clear();
-        let options = '';
+
         if (json) {
             options = eval('(' + json + ')');
         }

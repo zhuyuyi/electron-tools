@@ -29,7 +29,7 @@ function ChooseList(props) {
                                                 key={i}
                                                 className={styles.echartsLi}
                                                 onClick={() => {
-                                                    goDetails(item);
+                                                    goDetails(item, category);
                                                 }}
                                             >
                                                 <div className={styles.echartsTitle}>

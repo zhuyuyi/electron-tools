@@ -25,21 +25,23 @@ export function initCharts(handleVisible) {
 
 export function handleOk(json) {
     const activeEditor = window.tinymce.activeEditor;
+    let options;
+    if (json) {
+        options = eval('(' + json + ')');
+    }
     const _div = document.createElement('div'); // 空壳div
     let _id = `canvas_${new Date().getTime()}`; // 获取每个id
 
-    const canvasBox = `<div id=${_id} style="width:400px;height:400px"></div>`;
+    const canvasBox = `<div id=${_id} style="width:${
+        (options.custom && options.custom.width) || '600'
+    }px;height:${(options.custom && options.custom.height) || '400'}px"></div>`;
     let _document = activeEditor.iframeElement.contentDocument;
     const script = `<script>${(function () {
-        let options;
         setTimeout(() => {
             const myChart = window.echarts.init(_document.getElementById(_id), null, {
                 renderer: 'canvas',
             });
             myChart.clear();
-            if (json) {
-                options = eval('(' + json + ')');
-            }
             myChart.setOption(options);
         }, 500);
         return options; // 这里需要重写 为了让重渲染时也触发相应
