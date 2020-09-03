@@ -1,19 +1,10 @@
-/*
- * @Author: 朱育仪
- * @Date: 2020-09-02 09:19:10
- * @Last Modified by: 朱育仪
- * @Last Modified time: 2020-09-02 09:19:10
- * @Description: line和bar所用的form
- */
-
 import React, {useState, useEffect} from 'react';
-import {Button, Form, Input, Card, Radio} from 'antd';
-import XYData from './XYData';
-import XAxis from './XAxis';
+import {Form, Input, Radio, Card} from 'antd';
 import SubmitEcharts from '@/components/EchartsModal/SubmitEcharts';
 import styles from './index.less';
+import XAxisPie from './XAxisPie';
+import XYData from './XYData';
 import {
-    isShowAreaStyleFuc,
     timeOutRender,
     changeTitle,
     changeWidth,
@@ -23,19 +14,24 @@ import {
 
 const FormItem = Form.Item;
 
-function EchartsForm(props) {
+function EchartsPieForm(props) {
     const [form] = Form.useForm();
-    let timer = null;
     const {handleDetailsVisible, renderCanvas, json, setEchartsValue, id} = props;
-
+    let timer = null;
+    // 配置项
+    let tagOptions = {
+        data: [],
+        bottom: 10,
+        left: 'center',
+    };
     const options = eval('(' + json + ')'); // 配置项
     const [opitonsData, setOpitonsData] = useState(options); // 可视化配置项
     const [values, setValues] = useState({
         width: (options.custom && options.custom.width) || '600', // 宽度
         height: (options.custom && options.custom.height) || '400', // 高度
         title: (options.title && options.title.text) || '', // canvas标题
-        isShowTooplip: options.tooltip && options.tooltip.trigger ? '1' : '2', // 是否展示图表文字提示
-        isShowAreaStyle: isShowAreaStyleFuc(options), // 是否展示填充色
+        subTitle: (options.title && options.title.subtext) || '', // canvas 副标题
+        isShowTooplip: options.tooltip ? '1' : '2', // 是否展示图表文字提示
         isShowTag: options.legend && options.legend.data ? '1' : '2', // 是否展示标签
     }); // 配置项
 
@@ -44,31 +40,9 @@ function EchartsForm(props) {
         let value = e.target.value;
         let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
         if (value === '1') {
-            _opitonsData.tooltip = {
-                trigger: 'axis',
-            };
+            _opitonsData.tooltip = {};
         } else {
             delete _opitonsData.tooltip;
-        }
-        timer = timeOutRender(timer, () => {
-            setOpitonsData(_opitonsData);
-        });
-    };
-
-    // 是否展示填充色
-    const changeShowAreaStyle = e => {
-        let value = e.target.value;
-        let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-        if (value === '1') {
-            _opitonsData.series.forEach(item => {
-                item.areaStyle = {};
-            });
-        } else {
-            _opitonsData.series.forEach(item => {
-                if (item.areaStyle) {
-                    delete item.areaStyle;
-                }
-            });
         }
         timer = timeOutRender(timer, () => {
             setOpitonsData(_opitonsData);
@@ -79,22 +53,25 @@ function EchartsForm(props) {
     const changeShowTag = e => {
         let value = e.target.value;
         let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
+        let data = _opitonsData.series[0].data;
         if (value === '1') {
             _opitonsData.legend = {
-                data: [],
+                ...tagOptions,
             };
-            for (let i = 0; i < _opitonsData.series.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 let tag = `标签${i + 1}`;
-                _opitonsData.series[i].name = tag; // 要与legend中数据一一对应
-                _opitonsData.legend.data.push(tag);
+                let name = data[i].name;
+                if (data[i].name) {
+                    _opitonsData.legend.data.push(name);
+                } else {
+                    data[i].name = tag; // 要与legend中数据一一对应
+                    _opitonsData.legend.data.push(data[i].name);
+                }
             }
         } else {
             _opitonsData.legend = {
-                data: [],
+                ...tagOptions,
             };
-            for (let i = 0; i < _opitonsData.series.length; i++) {
-                _opitonsData.series[i].name = '';
-            }
         }
         setValues({
             ...values,
@@ -105,24 +82,12 @@ function EchartsForm(props) {
         });
     };
 
-    // 添加数据源
-    const addData = () => {
-        let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-        let index = _opitonsData.series.length + 1;
-        _opitonsData.series = [..._opitonsData.series, {data: [], type: id, name: `标签${index}`}];
-        if (values.isShowTag === '1') {
-            _opitonsData.legend.data.push(`标签${index}`);
-        }
-        timer = timeOutRender(timer, () => {
-            setOpitonsData(_opitonsData);
-        });
-    };
-
     // opitonsData 更新后执行
     useEffect(() => {
         setEchartsValue(JSON.stringify(opitonsData));
     }, [opitonsData]);
 
+    // form render
     const formRender = () => {
         return (
             <Card bordered={false} className={styles.formContainer}>
@@ -166,53 +131,26 @@ function EchartsForm(props) {
                             <Radio value="2">否</Radio>
                         </Radio.Group>
                     </FormItem>
-                    <FormItem
-                        label="是否展示填充色"
-                        name="isShowAreaStyle"
-                        onChange={changeShowAreaStyle}
-                    >
-                        <Radio.Group>
-                            <Radio value="1">是</Radio>
-                            <Radio value="2">否</Radio>
-                        </Radio.Group>
-                    </FormItem>
                     <FormItem label="是否展示标签" name="isShowTag" onChange={changeShowTag}>
                         <Radio.Group>
                             <Radio value="1">是</Radio>
                             <Radio value="2">否</Radio>
                         </Radio.Group>
                     </FormItem>
-                    {values.isShowTag === '1' && (
-                        <FormItem label={`标签值`}>
-                            <XAxis
-                                opitonsData={opitonsData}
-                                setOpitonsData={setOpitonsData}
-                                tagType={`legend`}
-                            />
-                        </FormItem>
-                    )}
-                    <FormItem label="数据轴标题">
-                        <XAxis opitonsData={opitonsData} setOpitonsData={setOpitonsData} />
+                    <FormItem label={`标签值`}>
+                        <XAxisPie
+                            opitonsData={opitonsData}
+                            setOpitonsData={setOpitonsData}
+                            tagType={`legend`}
+                            isShowTag={values.isShowTag}
+                        />
                     </FormItem>
-                    {opitonsData.series.map((item, index) => {
-                        let random = (Math.random() * 100000000).toFixed(0);
-                        return (
-                            <FormItem
-                                label={`数据呈现（第${index + 1}组数据）`}
-                                key={`${random}_${index}`}
-                            >
-                                <XYData
-                                    opitonsData={opitonsData}
-                                    setOpitonsData={setOpitonsData}
-                                    opitonsDataItemIndex={index}
-                                />
-                            </FormItem>
-                        );
-                    })}
-                    <FormItem label="添加新数据">
-                        <Button type="primary" onClick={addData}>
-                            添加
-                        </Button>
+                    <FormItem label={`数据轴数据`}>
+                        <XYData
+                            opitonsData={opitonsData}
+                            setOpitonsData={setOpitonsData}
+                            isShowTag={values.isShowTag}
+                        />
                     </FormItem>
                 </Form>
             </Card>
@@ -220,7 +158,7 @@ function EchartsForm(props) {
     };
 
     return (
-        <div>
+        <div className={styles.aceEditorBox}>
             <SubmitEcharts
                 handleDetailsVisible={handleDetailsVisible}
                 renderCanvas={renderCanvas}
@@ -233,4 +171,4 @@ function EchartsForm(props) {
     );
 }
 
-export default EchartsForm;
+export default EchartsPieForm;

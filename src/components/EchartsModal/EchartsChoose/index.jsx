@@ -3,6 +3,7 @@ import styles from './index.less';
 import {Tabs} from 'antd';
 import CodeMirrorEditor from './../CodeMirrorEditor';
 import EchartsForm from './../EchartsForm';
+import EchartsPieForm from './../EchartsPieForm';
 import EchartsView from './../EchartsView';
 import ChooseList from './ChooseList';
 import {handleOk} from '@/components/EchartsModal/echartsModalPlugin';
@@ -59,7 +60,15 @@ function EchartsChoose(props) {
                 />
             );
         } else if (id === 'pie') {
-            return <div>1111</div>;
+            return (
+                <EchartsPieForm
+                    handleDetailsVisible={handleDetailsVisible}
+                    setEchartsValue={setEchartsValue}
+                    renderCanvas={renderCanvas}
+                    json={json}
+                    id={id}
+                />
+            );
         }
     };
 

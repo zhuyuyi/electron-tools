@@ -3,8 +3,8 @@ import {Input, Tag} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import styles from './index.less';
 
-function XAxis(props) {
-    const {opitonsData, setOpitonsData, tagType} = props;
+function XYData(props) {
+    const {opitonsData, setOpitonsData, isShowTag} = props;
 
     const inputRef = useRef(); // 添加的输入框
     const [inputVisible, handleInputVisible] = useState(false); // 添加输入框显示隐藏
@@ -13,17 +13,6 @@ function XAxis(props) {
     const [editInputVisible, handleEditInputVisible] = useState(-1); // 编辑输入框显示隐藏
     const [editInputValue, setEditInputValue] = useState(''); // 编辑输入框值
     const [editInputRef, setEditInputRef] = useState(null); // 获取refInput
-    const [type, setType] = useState(tagType || 'xAxis');
-
-    useEffect(() => {
-        if (tagType !== 'legend') {
-            if (opitonsData.xAxis.type === 'category') {
-                setType('xAxis');
-            } else if (opitonsData.yAxis.type === 'category') {
-                setType('yAxis');
-            }
-        }
-    }, []);
 
     useEffect(() => {
         if (inputVisible) {
@@ -35,7 +24,17 @@ function XAxis(props) {
     const handleInputConfirm = () => {
         if (inputValue) {
             let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-            _opitonsData[type].data = [..._opitonsData[type].data, inputValue];
+            let data = _opitonsData.series[0].data;
+            let tag = `自定义${data.length + 1}`;
+            let item = {
+                name: tag,
+                value: inputValue,
+            };
+            _opitonsData.series[0].data = [...data, item];
+            if (isShowTag === '1') {
+                let data = _opitonsData.legend.data;
+                _opitonsData.legend.data = [...data, tag];
+            }
 
             setOpitonsData(_opitonsData);
             setInputValue(''); // 将input制空
@@ -52,10 +51,7 @@ function XAxis(props) {
     const handleEditInputConfirm = index => {
         if (editInputValue) {
             let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-            _opitonsData[tagType].data[index] = editInputValue;
-            if (tagType === 'legend') {
-                _opitonsData.series[index].name = editInputValue;
-            }
+            _opitonsData.series[0].data[index].value = editInputValue;
             setOpitonsData(_opitonsData);
         }
         handleEditInputVisible(false);
@@ -87,58 +83,55 @@ function XAxis(props) {
     // closeTag
     const onCloseTag = index => {
         let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-        _opitonsData[type].data.splice(index, 1);
+        _opitonsData.series[0].data.splice(index, 1);
         setOpitonsData(_opitonsData);
     };
 
     // 新增的渲染dom
     const renderInputOrTag = () => {
-        if (tagType !== 'legend') {
-            if (inputVisible) {
-                return (
-                    <Input
-                        ref={inputRef}
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        onBlur={handleInputConfirm}
-                        onPressEnter={handleInputConfirm}
-                        className={styles.tagInput}
-                    />
-                );
-            } else {
-                return (
-                    <Tag
-                        onClick={() => {
-                            handleInputVisible(true);
-                        }}
-                    >
-                        <PlusOutlined /> 添加数据
-                    </Tag>
-                );
-            }
+        if (inputVisible) {
+            return (
+                <Input
+                    ref={inputRef}
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onBlur={handleInputConfirm}
+                    onPressEnter={handleInputConfirm}
+                    className={styles.tagInput}
+                />
+            );
+        } else {
+            return (
+                <Tag
+                    onClick={() => {
+                        handleInputVisible(true);
+                    }}
+                >
+                    <PlusOutlined /> 添加数据
+                </Tag>
+            );
         }
     };
 
     return (
         <Fragment>
-            {opitonsData[type] &&
-                opitonsData[type].data &&
-                opitonsData[type].data.map((tag, index) => {
+            {opitonsData.series[0].data &&
+                opitonsData.series[0].data.map((tag, index) => {
                     if (editInputVisible !== index) {
                         return (
                             <Tag
                                 key={index}
-                                closable={tagType !== 'legend'}
+                                closable
                                 onClose={() => {
                                     onCloseTag(index);
                                 }}
                             >
                                 <span
                                     onClick={() => {
-                                        tagDoubleClick(index, tag);
+                                        tagDoubleClick(index, tag.value);
                                     }}
                                 >
-                                    {tag}
+                                    {tag.value}
                                 </span>
                             </Tag>
                         );
@@ -165,4 +158,4 @@ function XAxis(props) {
     );
 }
 
-export default XAxis;
+export default XYData;

@@ -5,7 +5,6 @@ export const pies = [
         options: `{
             title: {
                 text: '天气情况统计',
-                subtext: '虚构数据',
                 left: 'center'
             },
             tooltip: {},
@@ -14,7 +13,7 @@ export const pies = [
                 // top: 'middle',
                 bottom: 10,
                 left: 'center',
-                data: ['西凉', '益州', '兖州', '荆州', '幽州']
+                data: ['标签1', '标签2', '标签3', '标签4', '标签5']
             },
             series: [
                 {
@@ -23,11 +22,11 @@ export const pies = [
                     center: ['50%', '50%'],
                     selectedMode: 'single',
                     data: [
-                        {value: 1548, name: '幽州'},
-                        {value: 535, name: '荆州'},
-                        {value: 510, name: '兖州'},
-                        {value: 634, name: '益州'},
-                        {value: 735, name: '西凉'}
+                        {value: 1548, name: '标签1'},
+                        {value: 535, name: '标签2'},
+                        {value: 510, name: '标签3'},
+                        {value: 634, name: '标签4'},
+                        {value: 735, name: '标签5'}
                     ],
                     emphasis: {
                         itemStyle: {
@@ -44,19 +43,16 @@ export const pies = [
         title: '自定义饼图',
         url: 'https://echarts-www.cdn.bcebos.com/examples/data/thumb/pie-custom.jpg?_v_=20200710_1',
         options: `{
-            backgroundColor: '#2c343c',
+            // backgroundColor: '#2c343c',
             title: {
                 text: 'Customized Pie',
                 left: 'center',
                 top: 20,
                 textStyle: {
-                    color: '#ccc'
+                    color: '#2c343c'
                 }
             },
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b} : {c} ({d}%)'
-            },
+            tooltip: {},
             visualMap: {
                 show: false,
                 min: 80,
@@ -67,7 +63,7 @@ export const pies = [
             },
             series: [
                 {
-                    name: '访问来源',
+                    // name: '访问来源',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '50%'],
@@ -80,11 +76,11 @@ export const pies = [
                     ].sort(function (a, b) { return a.value - b.value; }),
                     roseType: 'radius',
                     label: {
-                        color: 'rgba(255, 255, 255, 0.3)'
+                        color: 'rgba(0,0,0,0.7)'
                     },
                     labelLine: {
                         lineStyle: {
-                            color: 'rgba(255, 255, 255, 0.3)'
+                            color: 'rgba(0,0,0,0.5)'
                         },
                         smooth: 0.2,
                         length: 10,
@@ -109,18 +105,15 @@ export const pies = [
         url:
             'https://echarts-www.cdn.bcebos.com/examples/data/thumb/pie-doughnut.jpg?_v_=20200710_1',
         options: `{
-            tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} ({d}%)'
-            },
+            tooltip: {},
             legend: {
-                orient: 'vertical',
-                left: 10,
+                bottom: 10,
+                left: 'center',
                 data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
             },
             series: [
                 {
-                    name: '访问来源',
+                    // name: '访问来源',
                     type: 'pie',
                     radius: ['50%', '70%'],
                     avoidLabelOverlap: false,

@@ -3,7 +3,7 @@ import {Button} from 'antd';
 import styles from './index.less';
 
 function SubmitEcharts(props) {
-    const {handleSubmit, renderCanvas, handleDetailsVisible} = props;
+    const {handleSubmit, renderCanvas, handleDetailsVisible, form, setValues} = props;
 
     return (
         <div className={styles.btnBox}>
@@ -15,7 +15,13 @@ function SubmitEcharts(props) {
             >
                 返回
             </Button>
-            <Button type="primary" onClick={handleSubmit} className={styles.marginRight}>
+            <Button
+                type="primary"
+                onClick={() => {
+                    handleSubmit(form, setValues);
+                }}
+                className={styles.marginRight}
+            >
                 运行
             </Button>
             <Button type="primary" onClick={renderCanvas}>
