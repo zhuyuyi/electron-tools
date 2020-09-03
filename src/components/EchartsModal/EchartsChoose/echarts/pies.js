@@ -4,7 +4,7 @@ export const pies = [
         url: 'https://echarts-www.cdn.bcebos.com/examples/data/thumb/pie-simple.jpg?_v_=20200710_1',
         options: `{
             title: {
-                text: '天气情况统计',
+                text: '基础饼图',
                 left: 'center'
             },
             tooltip: {},
@@ -45,7 +45,7 @@ export const pies = [
         options: `{
             // backgroundColor: '#2c343c',
             title: {
-                text: 'Customized Pie',
+                text: '自定义饼图',
                 left: 'center',
                 top: 20,
                 textStyle: {

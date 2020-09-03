@@ -32,9 +32,16 @@ export function handleOk(json) {
     const _div = document.createElement('div'); // 空壳div
     let _id = `canvas_${new Date().getTime()}`; // 获取每个id
 
-    const canvasBox = `<div id=${_id} style="width:${
-        (options.custom && options.custom.width) || '600'
-    }px;height:${(options.custom && options.custom.height) || '400'}px"></div>`;
+    let width = '600';
+    let height = '400';
+    if (options.custom && options.custom.width) {
+        width = options.custom.width;
+    }
+    if (options.custom && options.custom.height) {
+        height = options.custom.height;
+    }
+
+    const canvasBox = `<div id=${_id} style="width:${width}px;height:${height}px"></div>`;
     let _document = activeEditor.iframeElement.contentDocument;
     const script = `<script>${(function () {
         setTimeout(() => {
@@ -44,12 +51,20 @@ export function handleOk(json) {
             myChart.clear();
             myChart.setOption(options);
         }, 500);
-        return options; // 这里需要重写 为了让重渲染时也触发相应
+        return json; // 这里需要重写 为了让重渲染时也触发相应
     })()}</script>`;
 
     _div.innerHTML = canvasBox + script; // 拼装组件
 
-    let render = '<div contenteditable="false">' + _div.innerHTML + '</div>'; // 渲染renderdiv
+    // display:inline-block;margin:0 auto;
+    let render =
+        '<div contenteditable="false" style="width:' +
+        width +
+        'px;height:' +
+        height +
+        'px" >' +
+        _div.innerHTML +
+        '</div>'; // 渲染renderdiv
 
     activeEditor.insertContent(render);
 }
