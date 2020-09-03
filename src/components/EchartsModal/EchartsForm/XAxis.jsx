@@ -52,7 +52,7 @@ function XAxis(props) {
     const handleEditInputConfirm = index => {
         if (editInputValue) {
             let _opitonsData = JSON.parse(JSON.stringify(opitonsData));
-            _opitonsData[tagType].data[index] = editInputValue;
+            _opitonsData[type].data[index] = editInputValue;
             if (tagType === 'legend') {
                 _opitonsData.series[index].name = editInputValue;
             }
