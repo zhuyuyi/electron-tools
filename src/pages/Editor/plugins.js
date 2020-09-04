@@ -87,17 +87,14 @@ export const options = {
     },
 };
 
-let aa = `<div>11111111111111111</div><script>(function(){let a = 1;console.log(a)})()</script><div>22</div><script>(function(){let a = 2;console.log(a)})()</script>`; // 测试用例
-// 取出所有的方法
-let b = aa.match(/(\(function\(\){[^<>]*\}\)\(\))/g);
+// let aa = `<div>11111111111111111</div><script>(function(){let a = 1;console.log(a)})()</script><div>22</div><script>(function(){let a = 2;console.log(a)})()</script>`; // 测试用例
+// // 取出所有的方法
+// let b = aa.match(/(\(function\(\){[^<>]*\}\)\(\))/g);
 
-console.log(b);
-// 先渲染
-let c = `${aa}`;
-// 执行方法
-for (let i = 0; i < b.length; i++) {
-    eval(b[i]);
-}
-
-// 测试用例
-export let content = c;
+// console.log(b);
+// // 先渲染
+// let c = `${aa}`;
+// // 执行方法
+// for (let i = 0; i < b.length; i++) {
+//     eval(b[i]);
+// }
