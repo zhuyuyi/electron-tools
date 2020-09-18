@@ -17,11 +17,11 @@ const menus = [
         name: '编辑器',
     },
     {
-        path: '/setting',
+        path: '/ckeditor',
         icon() {
             return <BarChartOutlined />;
         },
-        name: '设置',
+        name: 'ckeditor编辑器',
     },
 ];
 

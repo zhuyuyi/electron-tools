@@ -36,7 +36,7 @@ export const getScript = value => {
 export const options = {
     selector: '#textarea',
     setup(ed) {
-        ed.on('change', e => {
+        ed.on('Change', e => {
             console.log(e);
             let value = ed.getContent();
             let cavansScript = value.match(/<script[\d\D]*>([\d\D]*)<\/script>/);
