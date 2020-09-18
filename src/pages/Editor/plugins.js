@@ -16,8 +16,43 @@ export const codesample_languages = [
     {text: 'Java', value: 'java'},
 ];
 
+// 获取script标签
+export const getScript = value => {
+    let cavansScript = value.match(/<script[\d\D]*>([\d\D]*)<\/script>/);
+    let options = JSON.parse(cavansScript[1]);
+
+    const activeEditor = window.tinymce.activeEditor;
+    let _document = activeEditor.iframeElement.contentDocument;
+    let dom = _document.getElementById(options.id);
+    try {
+        const myChart = window.echarts.init(dom);
+        myChart.clear();
+        myChart.setOption(JSON.parse(options.json));
+    } catch (err) {
+        console.log(err);
+    }
+};
+
 export const options = {
     selector: '#textarea',
+    setup(ed) {
+        ed.on('change', e => {
+            console.log(e);
+            let value = ed.getContent();
+            let cavansScript = value.match(/<script[\d\D]*>([\d\D]*)<\/script>/);
+            let options = JSON.parse(cavansScript[1]);
+            let _document = ed.iframeElement.contentDocument;
+            let dom = _document.getElementById(options.id);
+
+            setTimeout(() => {
+                const myChart = window.echarts.init(dom);
+                myChart.clear();
+                myChart.setOption(JSON.parse(options.json));
+            }, 2000);
+
+            // console.log('the content' + ed.getContent());
+        });
+    },
     plugins,
     toolbar,
     allowed_fields: true,

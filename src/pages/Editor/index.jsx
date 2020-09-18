@@ -5,7 +5,7 @@ import {Button, Card, Input} from 'antd';
 import LayoutHeader from '@/components/LayoutHeader';
 import EchartsModal from '@/components/EchartsModal';
 import {initCharts} from '@/components/EchartsModal/echartsModalPlugin';
-import {options} from './plugins'; // 编辑器
+import {options, getScript} from './plugins'; // 编辑器
 import styles from './index.less';
 import {httpGet, httpPost} from '@/utils/http';
 
@@ -25,12 +25,17 @@ function TinyMceEditor() {
     }, []);
 
     useEffect(() => {
-        httpGet('/api/article').then(returns => {
+        httpGet('/api/article').then(data => {
+            let returns = data.returns;
             setContent(returns.texts);
             setInputValue(returns.title);
             setId(returns._id);
+
+            setTimeout(() => {
+                getScript(returns.texts);
+            }, 2000);
         });
-    }, [_id]);
+    }, []);
 
     // echartsModal
     const handleModal = isshow => {

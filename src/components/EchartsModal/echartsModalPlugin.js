@@ -51,7 +51,13 @@ export function handleOk(json) {
             myChart.clear();
             myChart.setOption(options);
         }, 500);
-        return json; // 这里需要重写 为了让重渲染时也触发相应
+
+        let str = {
+            json,
+            id: _id,
+        };
+
+        return JSON.stringify(str); // 这里需要重写 为了让重渲染时也触发相应
     })()}</script>`;
 
     _div.innerHTML = canvasBox + script; // 拼装组件
