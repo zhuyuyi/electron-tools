@@ -64,7 +64,7 @@ export function handleOk(json) {
 
     // display:inline-block;margin:0 auto;
     let render =
-        '<div contenteditable="false" style="width:' +
+        '<div contenteditable="false" class="canvas-1" style="width:' +
         width +
         'px;height:' +
         height +

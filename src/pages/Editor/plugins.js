@@ -19,40 +19,40 @@ export const codesample_languages = [
 // 获取script标签
 export const getScript = value => {
     let cavansScript = value.match(/<script[\d\D]*>([\d\D]*)<\/script>/);
+    console.log(cavansScript, 'cavansScript');
     let options = JSON.parse(cavansScript[1]);
 
     const activeEditor = window.tinymce.activeEditor;
     let _document = activeEditor.iframeElement.contentDocument;
+
     let dom = _document.getElementById(options.id);
-    try {
-        const myChart = window.echarts.init(dom);
-        myChart.clear();
+    dom.innerHTML = '';
+    setTimeout(() => {
+        const myChart = window.echarts.init(dom, null, {
+            renderer: 'canvas',
+        });
+        // myChart.clear();
         myChart.setOption(JSON.parse(options.json));
-    } catch (err) {
-        console.log(err);
-    }
+        console.log(myChart, 'myChart');
+    }, 1000);
 };
 
 export const options = {
     selector: '#textarea',
-    setup(ed) {
-        ed.on('Change', e => {
-            console.log(e);
+    init_instance_callback(ed) {
+        ed.on('change', () => {
+            // console.log(e);
             let value = ed.getContent();
-            let cavansScript = value.match(/<script[\d\D]*>([\d\D]*)<\/script>/);
-            let options = JSON.parse(cavansScript[1]);
-            let _document = ed.iframeElement.contentDocument;
-            let dom = _document.getElementById(options.id);
-
-            setTimeout(() => {
-                const myChart = window.echarts.init(dom);
-                myChart.clear();
-                myChart.setOption(JSON.parse(options.json));
-            }, 2000);
-
-            // console.log('the content' + ed.getContent());
+            getScript(value);
         });
     },
+    // init_instance_callback() {
+    //     const activeEditor = window.tinymce.activeEditor;
+    //     let _document = activeEditor.iframeElement.contentDocument;
+    //     _document.addEventListener('drag', (event) => {
+    //         console.log(event)
+    //     }, false);
+    // },
     plugins,
     toolbar,
     allowed_fields: true,
