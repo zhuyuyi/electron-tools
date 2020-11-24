@@ -28,6 +28,7 @@
   },
   "homepage": ".",
   "devDependencies": {
+    "node-sass": "^4.14.1",
     "@babel/core": "^7.11.1",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
@@ -42,6 +43,7 @@
     "eslint": "^7.7.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
+    "extract-text-webpack-plugin": "^3.0.2",
     "fs": "^0.0.1-security",
     "html-webpack-plugin": "^4.3.0",
     "html-withimg-loader": "^0.1.16",
@@ -50,6 +52,7 @@
     "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^0.11.0",
     "prettier": "^2.0.5",
+    "sass-loader": "^10.0.3",
     "style-loader": "^1.2.1",
     "transform-runtime": "^0.0.0",
     "url-loader": "^4.1.0",

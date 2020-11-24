@@ -2,6 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 打出单独的css包
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+// const extractSass = new ExtractTextPlugin({
+//     filename: "[name].[contenthash].css",
+//     disable: process.env.NODE_ENV === "development"
+// });
 
 module.exports = {
     entry: {
@@ -39,6 +45,23 @@ module.exports = {
                                 ],
                             ],
                         },
+                    },
+                ],
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: 'electron-tools-[local]-[hash:5]',
+                            },
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
                     },
                 ],
             },
