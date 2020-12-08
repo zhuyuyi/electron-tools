@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {Button, Card} from 'antd';
 import {homePageActions} from './models/homePage';
 import styles from './index.scss';
-import Demo2 from './components/demo2';
 
 function HomePage(props) {
     console.log(props);
@@ -39,20 +38,10 @@ function HomePage(props) {
         <div>
             <LayoutHeader title="主页" subTitle="这是主页">
                 <Card>
-                    <div className={styles.alertWarning}>
-                        <div className={styles.zyyZzz}>2222</div>
-                        <div className={styles.zyyZzz}>3333</div>
-                        <div className={styles.zyyZzz}>4</div>
-                        <div className={styles.zyyZzz}>5</div>
-                    </div>
+                    <div className={styles.alertWarning}></div>
                     <Button type="primary" onClick={setPersonLike}>
                         {person.like.football}
                     </Button>
-
-                    <div className={styles.alertInfo}>sdasdasdasdas</div>
-                    <div className={styles.zyy3}>sadddddddd</div>
-
-                    <Demo2 />
                 </Card>
             </LayoutHeader>
         </div>
