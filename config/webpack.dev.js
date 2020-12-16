@@ -15,7 +15,7 @@ const devConfig = {
          */
         publicPath: '/',
         path: path.resolve(__dirname, '../dist'),
-        filename: 'bundle.[contenthash].js',
+        filename: 'bundle.[hash].js',
     },
     //webpack-dev-server配置本地服务器，并配置跨域
     devServer: {
