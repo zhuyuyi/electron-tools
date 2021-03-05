@@ -1,11 +1,26 @@
-import React, {Component} from 'react';
+import { Card, Button } from 'antd';
+import React, { } from 'react';
 
-class Demo3 extends Component {
-    render() {
-        const {name} = this.props;
+const Demo3 = (props) => {
+    
+    // const { 
+    //     count 
+    // } = props;
+ 
+    const handleClick = () => {
+        // console.log(count,'count')
+        setTimeout(() => {
+            console.log('props :>> ', props);
+            alert(props.count.num);
+        }, 3000);
+    };
 
-        return <div id="div">{name}</div>;
-    }
+    return (
+        <Card title="demo3">
+            <p>{props.count.num}</p>
+            <Button onClick={handleClick}>点我弹我</Button>
+        </Card>
+    );
 }
 
 export default Demo3;

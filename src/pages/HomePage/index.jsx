@@ -1,63 +1,90 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import LayoutHeader from '@/components/LayoutHeader';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {Button, Card} from 'antd';
-import {homePageActions} from './models/homePage';
-import styles from './index.scss';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { homePageActions } from './models/homePage';
+import { Button } from 'antd';
+
+import Demo1 from './components/demo1';
 import Demo2 from './components/demo2';
+import Demo3 from './components/demo3';
+import Demo4 from './components/demo4';
+import Demo5 from './components/demo5';
+import Demo6 from './components/demo6';
+import Demo7 from './components/demo7';
+import Demo8 from './components/demo8';
+import Demo9 from './components/demo9';
 
-function HomePage(props) {
-    console.log(props);
+function HomePage() {
 
-    const [person, setPerson] = useState({
-        name: 'zhuyuyi',
-        age: 25,
-        like: {
-            football: 'football',
-        },
-    });
+    /* -------------------- demo1下 ----------------- */
+    const [demo1Name, setDemo1Name] = useState(''); // demo1专用父亲
+    /* -------------------- demo1上 ----------------- */
 
+
+    /* -------------------- demo3下 ----------------- */
+    // const [count, setCount] = useState({
+    //     num: 0
+    // });
+    // // componentDidMount
     // useEffect(() => {
-    //     getApi();
-    // }, []);
+    //     setInterval(() => {
+    //         setCount(c => {
+    //             return {
+    //                 num: c.num + 1
+    //             }
+    //         })
+    //         // console.log(count, '我永远是初始化定义时的 0')
+    //     }, 1000);
+    // }, [])
+    /* -------------------- demo3上 ----------------- */
 
-    // const getApi = () => {
-    //     const {ceshiApi} = props;
-    //     ceshiApi();
-    // };
 
-    const setPersonLike = () => {
-        setPerson({
-            like: {
-                football: 'football',
-            },
-        });
-    };
+    /* -------------------- demo5下 ----------------- */
+    // const [id, setId] = useState('');
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setId('123456789')
+    //     }, 1000)
+    // }, [])
+    /* -------------------- demo5上 ----------------- */
 
+    /* -------------------- demo8上 ----------------- */
+
+    /* -------------------- demo8上 ----------------- */
+    
     return (
         <div>
             <LayoutHeader title="主页" subTitle="这是主页">
-                <Card>
-                    <div className={styles.alertWarning}>
-                        <div className={styles.zyyZzz}>2222</div>
-                        <div className={styles.zyyZzz}>3333</div>
-                        <div className={styles.zyyZzz}>4</div>
-                        <div className={styles.zyyZzz}>5</div>
-                    </div>
-                    <Button type="primary" onClick={setPersonLike}>
-                        {person.like.football}
-                    </Button>
+                {/* <Button onClick={() => { setDemo1Name('I am father of demo1') }}>设置demo1 name</Button>
+                <Demo1
+                    demo1Name={demo1Name}
+                /> */}
+                {/* <Demo2 /> */}
+                {/* <Demo3
+                    count={count}
+                /> */}
+                {/* <Demo4
+                    count={count}
+                /> */}
+                {/* <Demo5 
+                    id={id}
+                /> */}
+                {/* <Demo6 /> */}
+                {/* <Demo7 /> */}
 
-                    <div className={styles.alertInfo}>sdasdasdasdas</div>
-                    <div className={styles.zyy3}>sadddddddd</div>
+                <Demo8 />
+                <Demo9 />
 
-                    <Demo2 />
-                </Card>
             </LayoutHeader>
         </div>
     );
 }
+
+
+
+
+
 
 const mapStateToProps = state => {
     return {

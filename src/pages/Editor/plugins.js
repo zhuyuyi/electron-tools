@@ -3,7 +3,7 @@ export const plugins =
     'print table advlist lists echarts noneditable anchor bbcode code charmap codesample emoticons fullscreen hr image imagetools insertdatetime legacyoutput link media nonbreaking noneditable pagebreak paste print searchreplace table template wordcount';
 
 export const toolbar =
-    'undo redo | formatselect 自定义库 | forecolor backcolor formatting alignment | bullist numlist | anchor image link media charmap emoticons hr nonbreaking codesample | searchreplace pagebreak fullscreen template';
+    'undo redo | forecolor backcolor formatting alignment | bullist numlist | anchor image link media charmap emoticons hr nonbreaking codesample | searchreplace pagebreak fullscreen template';
 
 export const codesample_languages = [
     // 高亮语言

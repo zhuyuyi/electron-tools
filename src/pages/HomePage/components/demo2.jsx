@@ -1,28 +1,23 @@
-import React, {Component} from 'react';
-import {Button} from 'antd';
-import Demo3 from './demo3';
-import Demo4 from './demo4';
+import React, { useState, useEffect } from 'react';
+import { Card } from 'antd';
+function Demo2() {
+    const [num, setNum] = useState(0);
+    // componentDidMount
+    useEffect(() => {
+        setInterval(() => {
+            setNum(num + 1) // num一直是0，我拿的一直是第一帧即初始化时候的值
+            console.log(num)
+        }, 1000);
+    }, [])
 
-class Demo2 extends Component {
-    state = {
-        name: 1,
-    };
+    useEffect(()=>{
+        console.log(num,'我变成了1，之后一直是1，切不会触发渲染了')
+    },[num])
 
-    setValue = () => {
-        this.setState({
-            name: this.state.name + 1,
-        });
-    };
-
-    render() {
-        return (
-            <div id="div">
-                <Button onClick={this.setValue}>朱育仪</Button>
-                <Demo3 name={this.state.name} />
-                <Demo4 name={this.state.name} />
-            </div>
-        );
-    }
+    return (
+        <Card title="demo2">
+            <p>{num}</p>
+        </Card>
+    )
 }
-
 export default Demo2;

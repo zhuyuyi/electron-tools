@@ -71,16 +71,5 @@
     "test": "webpack --mode production --config ./config/webpack.test.js&&cross-env NODE_ENV=production",
     "build": "webpack --mode production --config ./config/webpack.prod.js&&cross-env NODE_ENV=production"
   },
-  "description": "my-demo",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "npm run eslint-fix",
-      "git add"
-    ]
-  }
+  "description": "my-demo"
 }
