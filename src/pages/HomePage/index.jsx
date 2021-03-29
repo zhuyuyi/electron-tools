@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import LayoutHeader from '@/components/LayoutHeader';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -14,31 +14,36 @@ import Demo6 from './components/demo6';
 import Demo7 from './components/demo7';
 import Demo8 from './components/demo8';
 import Demo9 from './components/demo9';
+// let a
+
+debugger
 
 function HomePage() {
 
+    // if (!a) {
+    //     a = useState('zyy')
+    // }
+
     /* -------------------- demo1下 ----------------- */
-    const [demo1Name, setDemo1Name] = useState(''); // demo1专用父亲
+    const [demo1Name, setDemo1Name] = useState('xyb'); // demo1专用父亲
     /* -------------------- demo1上 ----------------- */
 
-
     /* -------------------- demo3下 ----------------- */
-    // const [count, setCount] = useState({
-    //     num: 0
-    // });
-    // // componentDidMount
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         setCount(c => {
-    //             return {
-    //                 num: c.num + 1
-    //             }
-    //         })
-    //         // console.log(count, '我永远是初始化定义时的 0')
-    //     }, 1000);
-    // }, [])
+    const [count, setCount] = useState({
+        num: 0
+    });
+    // componentDidMount
+    useEffect(() => {
+        setInterval(() => {
+            setCount(c => {
+                return {
+                    num: c.num + 1
+                }
+            })
+            // console.log(count, '我永远是初始化定义时的 0')
+        }, 1000);
+    }, [])
     /* -------------------- demo3上 ----------------- */
-
 
     /* -------------------- demo5下 ----------------- */
     // const [id, setId] = useState('');
@@ -52,7 +57,6 @@ function HomePage() {
     /* -------------------- demo8上 ----------------- */
 
     /* -------------------- demo8上 ----------------- */
-    
     return (
         <div>
             <LayoutHeader title="主页" subTitle="这是主页">
@@ -67,15 +71,18 @@ function HomePage() {
                 {/* <Demo4
                     count={count}
                 /> */}
-                {/* <Demo5 
+                {/* <Demo5
                     id={id}
                 /> */}
                 {/* <Demo6 /> */}
                 {/* <Demo7 /> */}
+                
+                {/* <Demo8 />
+                <Demo9 /> */}
 
-                <Demo8 />
-                <Demo9 />
-
+                {/* {demo1Name} */}
+                {/* {a[0]} */}
+                {/* <div onClick={() => { a[1]('zyyyyyy') }}>dsadsadasdad</div> */}
             </LayoutHeader>
         </div>
     );

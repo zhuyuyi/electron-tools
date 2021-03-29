@@ -3,15 +3,15 @@ import React, { } from 'react';
 
 const Demo3 = (props) => {
     
-    // const { 
-    //     count 
-    // } = props;
+    const { 
+        count 
+    } = props;
  
     const handleClick = () => {
         // console.log(count,'count')
         setTimeout(() => {
             console.log('props :>> ', props);
-            alert(props.count.num);
+            alert(count.num);
         }, 3000);
     };
 

@@ -3,16 +3,17 @@ import { Card } from 'antd';
 
 
 const Demo5 = (props) => {
-
+    debugger
     const {
         id
     } = props;
 
     useEffect(() => {
         if (id) {
-            setTimeout(() => {
+            new Promise((resolve) => {
                 console.log(id, '我是demo5中的id值')
-            }, 100)
+                resolve(id)
+            })
         }
     }, [id])
 

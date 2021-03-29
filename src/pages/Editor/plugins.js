@@ -53,6 +53,7 @@ export const options = {
     //         console.log(event)
     //     }, false);
     // },
+    menubar: false,
     plugins,
     toolbar,
     allowed_fields: true,
