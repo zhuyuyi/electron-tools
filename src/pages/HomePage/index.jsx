@@ -14,12 +14,12 @@ import Demo6 from './components/demo6';
 import Demo7 from './components/demo7';
 import Demo8 from './components/demo8';
 import Demo9 from './components/demo9';
-// let a
+import Demo10 from './components/demo10';
+import { useMemo } from 'react';
+let a
 
-debugger
 
 function HomePage() {
-
     // if (!a) {
     //     a = useState('zyy')
     // }
@@ -27,22 +27,23 @@ function HomePage() {
     /* -------------------- demo1下 ----------------- */
     const [demo1Name, setDemo1Name] = useState('xyb'); // demo1专用父亲
     /* -------------------- demo1上 ----------------- */
-
+    // debugger
     /* -------------------- demo3下 ----------------- */
     const [count, setCount] = useState({
         num: 0
     });
+    console.log(222222)
     // componentDidMount
-    useEffect(() => {
-        setInterval(() => {
-            setCount(c => {
-                return {
-                    num: c.num + 1
-                }
-            })
-            // console.log(count, '我永远是初始化定义时的 0')
-        }, 1000);
-    }, [])
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         setCount(c => {
+    //             return {
+    //                 num: c.num + 1
+    //             }
+    //         })
+    //         // console.log(count, '我永远是初始化定义时的 0')
+    //     }, 1000);
+    // }, [])
     /* -------------------- demo3上 ----------------- */
 
     /* -------------------- demo5下 ----------------- */
@@ -57,14 +58,24 @@ function HomePage() {
     /* -------------------- demo8上 ----------------- */
 
     /* -------------------- demo8上 ----------------- */
+
+    // const [value, setValue] = useState('');
+    // const [count, setCount] = useState(0);
+
+    // const onClick = useMemo(() => {
+    //     return <Demo10
+    //         count={count}
+    //     />
+    // }, [count]);
+
     return (
         <div>
             <LayoutHeader title="主页" subTitle="这是主页">
-                {/* <Button onClick={() => { setDemo1Name('I am father of demo1') }}>设置demo1 name</Button>
+                <Button onClick={() => { setDemo1Name('I am father of demo1') }}>设置demo1 name</Button>
                 <Demo1
                     demo1Name={demo1Name}
-                /> */}
-                {/* <Demo2 /> */}
+                />
+                <Demo2 />
                 {/* <Demo3
                     count={count}
                 /> */}
@@ -76,13 +87,15 @@ function HomePage() {
                 /> */}
                 {/* <Demo6 /> */}
                 {/* <Demo7 /> */}
-                
+
                 {/* <Demo8 />
                 <Demo9 /> */}
 
                 {/* {demo1Name} */}
                 {/* {a[0]} */}
                 {/* <div onClick={() => { a[1]('zyyyyyy') }}>dsadsadasdad</div> */}
+                {/* <input type="text" value={value} onChange={(e) => { setValue(e.target.value) }} />
+                {onClick} */}
             </LayoutHeader>
         </div>
     );

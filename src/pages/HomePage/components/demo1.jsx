@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { Card, Button } from 'antd';
 
+function a() {
+    let xxx = {};
+}
+// a()
+// a()
+// a()
 
 function Demo1(props) {
 
@@ -14,7 +20,7 @@ function Demo1(props) {
 
     const [nameZyy, setNameZyy] = useState('zyy');
     const [nameXyb, setNameXyb] = useState('xyb');
-
+    // debugger
     const clickZyy = () => {
         setNameZyy('朱育仪')
     }
@@ -52,11 +58,11 @@ function Demo1(props) {
             console.log(11111)
         }
     },[])
-
+    // debugger
     return (
         <Card title="demo1">
             <div>{nameZyy}</div>
-            {/* <div>{nameXyb}</div> */}
+            <div>{nameXyb}</div>
             <Button onClick={clickZyy}>设置名称nameZyy</Button>
             <Button onClick={clickXyb}>设置名称nameXyb</Button>
         </Card>
