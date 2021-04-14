@@ -7,39 +7,39 @@ class Demo4 extends Component {
         super(props)
         this.state = {
             a: 1,
-            num: 0
+            b: 1,
+            c: 1
         }
     }
 
-    componentDidMount() {
-        setInterval(() => {
-            const {
-                num
-            } = this.state;
-            this.setState({
-                num: num + 1
-            })
-            console.log(this.state.num)
-        }, 2000)
-    }
-
     handleClick = () => {
-        // const {
-        //     count
-        // } = this.props;
-
-        console.log(this)
+        new Promise((resolve) => {
+            resolve()
+        }).then(() => {
+            this.setState({
+                a: this.state.a + 1,
+                b: this.state.b + 1,
+                c: this.state.c + 1
+            })
+            // this.setState({
+            //     b: this.state.b + 1
+            // })
+            // this.setState({
+            //     c: this.state.c + 1
+            // })
+        })
     };
 
     render() {
-        console.log(this.props)
-        // const {
-        //     count
-        // } = this.props;
-
+        console.log(11111)
+        const {
+            a,
+            b,
+            c,
+        } = this.state;
         return (
             <Card title="demo4">
-                {/* <p>{count}</p> */}
+                <div>{a}{b}{c}</div>
                 <Button onClick={this.handleClick}>点我弹我4</Button>
             </Card>
         );

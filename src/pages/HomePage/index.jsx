@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { homePageActions } from './models/homePage';
 import { Button } from 'antd';
+import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
 
 import Demo1 from './components/demo1';
 import Demo2 from './components/demo2';
@@ -26,13 +27,14 @@ function HomePage() {
 
     /* -------------------- demo1下 ----------------- */
     const [demo1Name, setDemo1Name] = useState('xyb'); // demo1专用父亲
+    const [a, setA] = useState(1)
+    const [b, setB] = useState(1)
     /* -------------------- demo1上 ----------------- */
     // debugger
     /* -------------------- demo3下 ----------------- */
     const [count, setCount] = useState({
         num: 0
     });
-    console.log(222222)
     // componentDidMount
     // useEffect(() => {
     //     setInterval(() => {
@@ -68,20 +70,34 @@ function HomePage() {
     //     />
     // }, [count]);
 
+    const clickBtn = () => {
+        new Promise((resolve) => {
+            resolve()
+        }).then(() => {
+            batchedUpdates(() => {
+                setDemo1Name('I am father of demo1');
+                setA(c => c + 1);
+                setB(c => c + 1);
+            })
+
+        })
+    }
+
+    console.log(11111111)
+
     return (
         <div>
             <LayoutHeader title="主页" subTitle="这是主页">
-                <Button onClick={() => { setDemo1Name('I am father of demo1') }}>设置demo1 name</Button>
-                <Demo1
+                <Button onClick={clickBtn}>设置demo1 name</Button>
+                {a}{b}
+                {/* <Demo1
                     demo1Name={demo1Name}
-                />
-                <Demo2 />
+                /> */}
+                {/* <Demo2 /> */}
                 {/* <Demo3
                     count={count}
                 /> */}
-                {/* <Demo4
-                    count={count}
-                /> */}
+                <Demo4 />
                 {/* <Demo5
                     id={id}
                 /> */}
