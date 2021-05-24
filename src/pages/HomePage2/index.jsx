@@ -6,6 +6,7 @@ import { setPerson } from './models';
 import { bindActionCreators } from 'redux';
 import Demo4 from './../HomePage/components/demo4';
 import { myContext } from './otherFunctions';
+import Chat from './chat';
 
 class HomePage2 extends Component {
 
@@ -19,18 +20,7 @@ class HomePage2 extends Component {
     }
 
     componentDidMount() {
-        console.log(111111111)
-    }
-
-    clickBtn = () => {
-        this.setState({
-            name: 'yyy'
-        })
-        console.log(this.titleRef)
-        // const {
-        //     setPerson
-        // } = this.props;
-        // setPerson({ name: 'nihao1' })
+        
     }
 
     render() {
@@ -40,9 +30,9 @@ class HomePage2 extends Component {
         return (
             <myContext.Provider value={name}>
                 <LayoutHeader title="主页2" subTitle="这是主页2">
-                    <Button onClick={this.clickBtn}>设置name</Button>
-                    {this.props.state.homePageReducer2.name}
-                    <Demo4 ref={this.titleRef} />
+                    <Button>设置name</Button>
+
+                    <Chat />
                 </LayoutHeader>
             </myContext.Provider>
         )
