@@ -27,7 +27,7 @@ const ChatList = (props) => {
 
     // 初始化socket
     const initSocket = () => {
-        let socket = io('http://127.0.0.1:7001', {
+        let socket = io('http://www.zhuyuyi.cn:3501', {
             // path: `${process.env.socketUrl}`,
             // 实际使用中可以在这里传递参数
             query: {
