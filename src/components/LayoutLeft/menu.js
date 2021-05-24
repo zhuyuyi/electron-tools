@@ -23,6 +23,13 @@ const menus = [
         },
         name: 'ckeditor编辑器',
     },
+    {
+        path: '/homePage2',
+        icon() {
+            return <BarChartOutlined />;
+        },
+        name: 'homePage2',
+    },
 ];
 
 export default menus;

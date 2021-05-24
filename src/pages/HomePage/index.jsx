@@ -17,58 +17,19 @@ import Demo8 from './components/demo8';
 import Demo9 from './components/demo9';
 import Demo10 from './components/demo10';
 import { useMemo } from 'react';
-let a
 
 
-function HomePage() {
-    // if (!a) {
-    //     a = useState('zyy')
-    // }
+function HomePage(props) {
 
-    /* -------------------- demo1下 ----------------- */
+    console.log(props)
+
     const [demo1Name, setDemo1Name] = useState('xyb'); // demo1专用父亲
     const [a, setA] = useState(1)
     const [b, setB] = useState(1)
-    /* -------------------- demo1上 ----------------- */
-    // debugger
-    /* -------------------- demo3下 ----------------- */
+   
     const [count, setCount] = useState({
         num: 0
     });
-    // componentDidMount
-    // useEffect(() => {
-    //     setInterval(() => {
-    //         setCount(c => {
-    //             return {
-    //                 num: c.num + 1
-    //             }
-    //         })
-    //         // console.log(count, '我永远是初始化定义时的 0')
-    //     }, 1000);
-    // }, [])
-    /* -------------------- demo3上 ----------------- */
-
-    /* -------------------- demo5下 ----------------- */
-    // const [id, setId] = useState('');
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setId('123456789')
-    //     }, 1000)
-    // }, [])
-    /* -------------------- demo5上 ----------------- */
-
-    /* -------------------- demo8上 ----------------- */
-
-    /* -------------------- demo8上 ----------------- */
-
-    // const [value, setValue] = useState('');
-    // const [count, setCount] = useState(0);
-
-    // const onClick = useMemo(() => {
-    //     return <Demo10
-    //         count={count}
-    //     />
-    // }, [count]);
 
     const clickBtn = () => {
         new Promise((resolve) => {
@@ -83,43 +44,15 @@ function HomePage() {
         })
     }
 
-    console.log(11111111)
-
     return (
         <div>
             <LayoutHeader title="主页" subTitle="这是主页">
                 <Button onClick={clickBtn}>设置demo1 name</Button>
-                {a}{b}
-                {/* <Demo1
-                    demo1Name={demo1Name}
-                /> */}
-                {/* <Demo2 /> */}
-                {/* <Demo3
-                    count={count}
-                /> */}
-                <Demo4 />
-                {/* <Demo5
-                    id={id}
-                /> */}
-                {/* <Demo6 /> */}
-                {/* <Demo7 /> */}
 
-                {/* <Demo8 />
-                <Demo9 /> */}
-
-                {/* {demo1Name} */}
-                {/* {a[0]} */}
-                {/* <div onClick={() => { a[1]('zyyyyyy') }}>dsadsadasdad</div> */}
-                {/* <input type="text" value={value} onChange={(e) => { setValue(e.target.value) }} />
-                {onClick} */}
             </LayoutHeader>
         </div>
     );
 }
-
-
-
-
 
 
 const mapStateToProps = state => {

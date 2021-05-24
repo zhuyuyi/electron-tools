@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'antd';
+import { myContext } from './../../HomePage2/otherFunctions';
 
 class Demo4 extends Component {
 
@@ -39,6 +40,9 @@ class Demo4 extends Component {
         } = this.state;
         return (
             <Card title="demo4">
+                <myContext.Consumer>
+                    {value => console.log(value, 'value')}
+                </myContext.Consumer>
                 <div>{a}{b}{c}</div>
                 <Button onClick={this.handleClick}>点我弹我4</Button>
             </Card>

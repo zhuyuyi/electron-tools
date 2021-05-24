@@ -1,12 +1,12 @@
 {
-  "name": "electron-tools",
+  "name": "electron-tools-zyy",
   "version": "1.0.0",
   "main": "./electron-index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/zhuyuyi/electron-tools.git"
   },
-  "author": "zhuyuyi <yyzhu@che300.com>",
+  "author": "zhuyuyi <939037508@qq.com>",
   "license": "MIT",
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -19,6 +19,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
@@ -28,7 +29,6 @@
   },
   "homepage": ".",
   "devDependencies": {
-    "node-sass": "^4.14.1",
     "@babel/core": "^7.11.1",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/preset-env": "^7.11.0",
@@ -51,6 +51,7 @@
     "less-loader": "^6.2.0",
     "lint-staged": "^10.2.11",
     "mini-css-extract-plugin": "^0.11.0",
+    "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
     "sass-loader": "^10.0.3",
     "style-loader": "^1.2.1",
